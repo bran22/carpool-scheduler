@@ -9,10 +9,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 // 3rd party components
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+
+// primeng components
+import {MenubarModule} from 'primeng/menubar';
 
 // authored components
 import { AppRoutingModule } from './app-routing.module';
@@ -41,7 +43,7 @@ import { MapboxComponent } from './mapbox/mapbox.component';
     AngularFirestoreModule,
     AngularFireAuthModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    MatToolbarModule
+    MenubarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

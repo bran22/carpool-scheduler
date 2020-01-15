@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {MenuItem} from 'primeng/api';
 
 @Component({
   selector: 'app-top-nav',
@@ -8,26 +9,27 @@ import { Router } from '@angular/router';
 })
 export class TopNavComponent implements OnInit {
 
-  navigationMenu = [
+  navigationMenu: MenuItem[] = [
     {
-      name: 'Home',
-      path: '/'
+      label: 'Home',
+      icon: 'pi pi-home',
+      routerLink: ['/']
     },
     {
-      name: 'Scheduler',
-      path: '/scheduler'
+      label: 'Scheduler',
+      routerLink: ['/scheduler']
     },
     {
-      name: 'Join',
-      path: '/join'
+      label: 'Join',
+      routerLink: ['/join']
     },
     {
-      name: 'blah',
-      path: ''
+      label: 'blah',
+      routerLink: ['/']
     },
     {
-      name: 'blah',
-      path: ''
+      label: 'blah',
+      routerLink: ['/']
     }
   ];
 

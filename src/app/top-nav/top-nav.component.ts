@@ -9,39 +9,37 @@ import {MenuItem} from 'primeng/api';
 })
 export class TopNavComponent implements OnInit {
 
-  navigationMenu: MenuItem[] = [
-    {
-      label: 'Home',
-      icon: 'pi pi-home',
-      routerLink: ['/']
-    },
-    {
-      label: 'Scheduler',
-      routerLink: ['/scheduler']
-    },
-    {
-      label: 'Join',
-      routerLink: ['/join']
-    },
-    {
-      label: 'blah',
-      routerLink: ['/']
-    },
-    {
-      label: 'blah',
-      routerLink: ['/']
-    }
-  ];
+  navigationMenu: MenuItem[];
 
   constructor(
     private router: Router
-  ) { }
-
-  ngOnInit() {
+  ) {
+    this.navigationMenu = [
+      {
+        label: 'Home',
+        icon: 'pi pi-home',
+        routerLink: ['/']
+      },
+      {
+        label: 'Scheduler',
+        routerLink: ['/scheduler']
+      },
+      {
+        label: 'Join',
+        routerLink: ['/join']
+      },
+      {
+        label: 'blah',
+        routerLink: ['/']
+      },
+      {
+        label: 'blah',
+        routerLink: ['/']
+      }
+    ];
   }
 
-  navigateToRoute(path: string) {
-    this.router.navigate([path]);
+  ngOnInit() {
   }
 
 }

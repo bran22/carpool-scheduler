@@ -24,6 +24,7 @@ import { SchedulerComponent } from './scheduler/scheduler.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
 import { JoinCarpoolComponent } from './join-carpool/join-carpool.component';
 import { MapboxComponent } from './mapbox/mapbox.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MapboxComponent } from './mapbox/mapbox.component';
     SchedulerComponent,
     TopNavComponent,
     JoinCarpoolComponent,
-    MapboxComponent
+    MapboxComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

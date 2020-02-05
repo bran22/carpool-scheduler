@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { AuthService } from '../_shared/services/auth.service';
 
 @Component({
   selector: 'app-scheduler',
@@ -13,7 +14,8 @@ export class SchedulerComponent implements OnInit {
   userInput: string;
 
   constructor(
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private authService: AuthService
   ) {
     this.items = db.collection('items').valueChanges();
   }
@@ -34,6 +36,11 @@ export class SchedulerComponent implements OnInit {
       console.error('Error writing document: ', error);
     });
 
+  }
+
+  checkToken() {
+    const bla = this.authService.loggedInUser.getIdToken();
+    console.log(bla);
   }
 
 }

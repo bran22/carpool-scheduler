@@ -1,2 +1,7 @@
 
-<p-menubar [model]="navigationMenu"></p-menubar>
+<p-menubar [model]="navigationMenu">
+  <div>
+    <button *ngIf="isUserLoggedIn" pButton label="Log Out" icon="pi pi-sign-out" class="ui-button-secondary" (click)="onLogoutClick()"></button>
+    <button *ngIf="!isUserLoggedIn" pButton label="Log In" icon="pi pi-sign-in" class="ui-button-info" (click)="onLoginClick()"></button>
+  </div>
+</p-menubar>

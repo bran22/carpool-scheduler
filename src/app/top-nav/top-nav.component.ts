@@ -12,6 +12,7 @@ export class TopNavComponent implements OnInit {
 
   navigationMenu: MenuItem[];
   isUserLoggedIn: boolean;
+  displayName: string;
 
   constructor(
     private router: Router,
@@ -52,6 +53,12 @@ export class TopNavComponent implements OnInit {
     // so that whenever that changes, we can update the view accordingly
     this.authService.isUserLoggedIn$.subscribe( res => {
       this.isUserLoggedIn = res;
+      const userData = this.authService.loggedInUser ? this.authService.loggedInUser : null;
+      if (userData) {
+        this.displayName = userData.displayName;
+      } else {
+        this.displayName = null;
+      }
       this.navigationMenu = this.setMenuItemVisibility(this.navigationMenu);
     });
   }

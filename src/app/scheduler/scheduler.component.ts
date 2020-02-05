@@ -38,9 +38,4 @@ export class SchedulerComponent implements OnInit {
 
   }
 
-  checkToken() {
-    const bla = this.authService.loggedInUser.getIdToken();
-    console.log(bla);
-  }
-
 }

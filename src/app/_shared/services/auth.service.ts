@@ -17,7 +17,8 @@ export class AuthService {
   ) { }
 
   subscribeToAuthChanges() {
-    // initialize boolean BehaviorSubject for sending 
+    // initialize boolean BehaviorSubject for sending login state updates when state changes
+    // we're using a BehaviorSubject because it also replays the latest state on Subscribe
     this.isUserLoggedIn$ = new BehaviorSubject(false);
 
     // subscribe to auth changes

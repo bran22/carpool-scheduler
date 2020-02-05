@@ -21,23 +21,28 @@ export class TopNavComponent implements OnInit {
       {
         label: 'Home',
         icon: 'pi pi-home',
-        routerLink: ['/']
+        routerLink: ['/'],
+        visible: true
       },
       {
         label: 'Scheduler',
-        routerLink: ['/scheduler']
+        routerLink: ['/scheduler'],
+        visible: true
       },
       {
         label: 'Join',
-        routerLink: ['/join']
+        routerLink: ['/join'],
+        visible: false
       },
       {
         label: 'blah',
-        routerLink: ['/']
+        routerLink: ['/'],
+        visible: false
       },
       {
         label: 'blah',
-        routerLink: ['/']
+        routerLink: ['/'],
+        visible: false
       }
     ];
   }
@@ -47,8 +52,20 @@ export class TopNavComponent implements OnInit {
     // so that whenever that changes, we can update the view accordingly
     this.authService.isUserLoggedIn$.subscribe( res => {
       this.isUserLoggedIn = res;
-      console.log('top nav - is user logged in?', this.isUserLoggedIn);
+      this.navigationMenu = this.setMenuItemVisibility(this.navigationMenu);
     });
+  }
+
+  setMenuItemVisibility(menu: MenuItem[]) {
+    // if login state changes, enable/disable menu items as needed
+    menu.forEach( item => {
+      if (item.label === 'Home' || item.label === 'Scheduler') {
+        item.visible = true;
+      } else {
+        item.visible = this.isUserLoggedIn;
+      }
+    });
+    return menu;
   }
 
   onLoginClick() {

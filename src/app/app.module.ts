@@ -15,6 +15,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 // primeng components
 import {MenubarModule} from 'primeng/menubar';
+import { ButtonModule } from 'primeng/button';
 
 // authored components
 import { AppRoutingModule } from './app-routing.module';
@@ -43,7 +44,8 @@ import { MapboxComponent } from './mapbox/mapbox.component';
     AngularFirestoreModule,
     AngularFireAuthModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    MenubarModule
+    MenubarModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -15,6 +15,9 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 // primeng components
 import {MenubarModule} from 'primeng/menubar';
+import {InputTextModule} from 'primeng/inputtext';
+import {CheckboxModule} from 'primeng/checkbox';
+import {CalendarModule} from 'primeng/calendar';
 
 // authored components
 import { AppRoutingModule } from './app-routing.module';
@@ -24,7 +27,7 @@ import { SchedulerComponent } from './scheduler/scheduler.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
 import { JoinCarpoolComponent } from './join-carpool/join-carpool.component';
 import { MapboxComponent } from './mapbox/mapbox.component';
-
+import { CreateCarpoolComponent} from './create-carpool/create-carpool.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +35,8 @@ import { MapboxComponent } from './mapbox/mapbox.component';
     SchedulerComponent,
     TopNavComponent,
     JoinCarpoolComponent,
-    MapboxComponent
+    MapboxComponent,
+    CreateCarpoolComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,10 @@ import { MapboxComponent } from './mapbox/mapbox.component';
     AngularFirestoreModule,
     AngularFireAuthModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    MenubarModule
+    MenubarModule,
+    InputTextModule,
+    CheckboxModule,
+    CalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

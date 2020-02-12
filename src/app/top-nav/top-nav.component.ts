@@ -29,8 +29,8 @@ export class TopNavComponent implements OnInit {
         routerLink: ['/join']
       },
       {
-        label: 'blah',
-        routerLink: ['/']
+        label: 'Create',
+        routerLink: ['/create']
       },
       {
         label: 'blah',

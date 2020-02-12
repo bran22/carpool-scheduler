@@ -1,0 +1,37 @@
+<p>
+    create a carpool here
+</p>
+
+<div class="buttons">
+  <h3 class="first">First Name</h3>
+  <input id="input" type="text" size="30" pInputText [(ngModel)]="model.firstname" firstname="firstname"
+    #name="ngModel">
+
+  <h3 class="Last">Last Name</h3>
+  <input id="input" type="text" size="30" pInputText [(ngModel)]="model.lastname" lastname="lastname"
+    #lastname="ngModel">
+
+  <h3 class="CarpoolName">Carpool Name</h3>
+  <input id="input" type="text" size="30" pInputText [(ngModel)]="model.carpoolname" carpoolname="carpoolname"
+  #carpoolname="ngModel"> 
+
+  <div class="meettime">
+    <div class="ui-g-2 ui-md-4" style="width:250px">
+      <h3>Default Meet-Up Time </h3>
+      <p-calendar [(ngModel)]="date8" [timeOnly]="true" hourFormat="12" ></p-calendar>
+    </div>
+
+    <h3 class="first">Select Carpool Days</h3>
+    <div class="ui-g" style="width:250px;margin-bottom:10px;margin-top:10px">
+        <div class="ui-g-12"><p-checkbox name="group1" value="Monday" label="Monday" [(ngModel)]="weekdays" inputId="m"></p-checkbox></div>
+        <div class="ui-g-12"><p-checkbox name="group1" value="Tuesday" label="Tuesday" [(ngModel)]="weekdays" inputId="t"></p-checkbox></div>
+        <div class="ui-g-12"><p-checkbox name="group1" value="Wednesday" label="Wednesday" [(ngModel)]="weekdays" inputId="w"></p-checkbox></div>
+        <div class="ui-g-12"><p-checkbox name="group1" value="Thursday" label="Thursday" [(ngModel)]="weekdays" inputId="th"></p-checkbox></div>
+        <div class="ui-g-12"><p-checkbox name="group1" value="Friday" label="Friday" [(ngModel)]="weekdays" inputId="f"></p-checkbox></div>
+    </div>
+    Selected Days: <span *ngFor="let day of weekdays" style="margin-right:10px">{{day}}</span>
+  </div>
+  <h3 class="location">Meeting Location</h3>
+
+  <button (click)="saveToFirebase(model)">Save</button>
+</div>

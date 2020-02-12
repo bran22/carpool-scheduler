@@ -36,9 +36,8 @@ export class TopNavComponent implements OnInit {
         visible: false
       },
       {
-        label: 'blah',
-        routerLink: ['/'],
-        visible: false
+        label: 'Create',
+        routerLink: ['/create']
       },
       {
         label: 'blah',

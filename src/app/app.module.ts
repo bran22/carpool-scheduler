@@ -18,6 +18,7 @@ import {MenubarModule} from 'primeng/menubar';
 import {InputTextModule} from 'primeng/inputtext';
 import {CheckboxModule} from 'primeng/checkbox';
 import {CalendarModule} from 'primeng/calendar';
+import { ButtonModule } from 'primeng/button';
 
 // authored components
 import { AppRoutingModule } from './app-routing.module';
@@ -50,7 +51,8 @@ import { CreateCarpoolComponent} from './create-carpool/create-carpool.component
     MenubarModule,
     InputTextModule,
     CheckboxModule,
-    CalendarModule
+    CalendarModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

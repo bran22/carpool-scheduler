@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 
 import { HomeComponent } from './home/home.component';
 import { SchedulerComponent } from './scheduler/scheduler.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AngularFireAuthGuard]
 })
 export class AppRoutingModule { }

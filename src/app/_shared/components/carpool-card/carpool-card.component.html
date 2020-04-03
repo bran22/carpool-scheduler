@@ -1,8 +1,14 @@
-<p-card header="{{carpool.name}}" subheader="Subheader" styleClass="card-fullwidth">
+<p-card header="{{carpool.carpoolName}}" styleClass="card-fullwidth">
   <p-header>
     <!-- image of carpool route -->
   </p-header>
   <!-- card body, carpool data -->
+  <div class="ui-g card-body">
+    <div class="ui-g-3"><i class="pi pi-directions"></i>{{carpool.meetupName}} >> {{carpool.destinationName}}</div>
+    <div class="ui-g-3"><i class="pi pi-clock"></i>{{carpool.meetupTime}}</div>
+    <div class="ui-g-3"><i class="pi pi-calendar"></i>{{carpool.meetupDays.length}}/week</div>
+    <div class="ui-g-3"><i class="pi pi-users"></i>{{carpool.participants.length}}</div>
+  </div>
   <p-footer>
     <button pButton type="button" label="Join" icon="pi pi-check"></button>
   </p-footer>

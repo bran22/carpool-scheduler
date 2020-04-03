@@ -1,10 +1,12 @@
 import { GeoJson } from './map';
 
 export interface ICarpool {
-  daysOfWeek: string;
-  destination: GeoJson;
-  origin: GeoJson;
-  meetTime: string;
-  name: string;
-
+  carpoolName: string;
+  destinationName: string;
+  destinationPoint: GeoJson;
+  meetupName: string;
+  meetupPoint: GeoJson;
+  meetupTime: string;
+  meetupDays: Array<number>;
+  participants: Array<string>;
 }

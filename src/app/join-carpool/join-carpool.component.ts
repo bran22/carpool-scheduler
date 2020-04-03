@@ -19,7 +19,6 @@ export class JoinCarpoolComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.carpools.subscribe( res => console.log(res));
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { MapboxService } from './mapbox.service';
-import { GeoJson, FeatureCollection } from './map';
+import { GeoJson, FeatureCollection } from '../_shared/interfaces/map';
 import { environment } from '../../environments/environment';
 
 @Component({

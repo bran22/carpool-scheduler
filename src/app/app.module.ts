@@ -19,6 +19,8 @@ import {InputTextModule} from 'primeng/inputtext';
 import {CheckboxModule} from 'primeng/checkbox';
 import {CalendarModule} from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
+import {CardModule} from 'primeng/card';
+
 
 // authored components
 import { AppRoutingModule } from './app-routing.module';
@@ -29,6 +31,7 @@ import { TopNavComponent } from './top-nav/top-nav.component';
 import { JoinCarpoolComponent } from './join-carpool/join-carpool.component';
 import { MapboxComponent } from './mapbox/mapbox.component';
 import { CreateCarpoolComponent} from './create-carpool/create-carpool.component';
+import { CarpoolCardComponent } from './_shared/components/carpool-card/carpool-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +40,8 @@ import { CreateCarpoolComponent} from './create-carpool/create-carpool.component
     TopNavComponent,
     JoinCarpoolComponent,
     MapboxComponent,
-    CreateCarpoolComponent
+    CreateCarpoolComponent,
+    CarpoolCardComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,8 @@ import { CreateCarpoolComponent} from './create-carpool/create-carpool.component
     InputTextModule,
     CheckboxModule,
     CalendarModule,
-    ButtonModule
+    ButtonModule,
+    CardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

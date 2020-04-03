@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { ICarpool } from '../_shared/interfaces/carpool';
 
 @Component({
   selector: 'app-join-carpool',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JoinCarpoolComponent implements OnInit {
 
-  constructor() { }
+  carpools: Observable<ICarpool[]>;
+
+  constructor(
+    private db: AngularFirestore,
+  ) {
+    this.carpools = db.collection<ICarpool>('carpools').valueChanges();
+  }
 
   ngOnInit() {
+    this.carpools.subscribe( res => console.log(res));
   }
 
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { ICarpool } from '../_shared/interfaces/carpool';
 import { User } from 'firebase';
 import { AuthService } from '../_shared/services/auth.service';
+import { ApiDatabaseService } from '../_shared/services/api-database.service';
 
 @Component({
   selector: 'app-join-carpool',
@@ -15,13 +15,12 @@ export class JoinCarpoolComponent implements OnInit {
   carpools$: Observable<ICarpool[]>;
 
   constructor(
-    private db: AngularFirestore,
-    private authService: AuthService
-  ) {
-    this.carpools$ = db.collection<ICarpool>('carpools').valueChanges();
-  }
+    private authService: AuthService,
+    private apiDatabaseService: ApiDatabaseService
+  ) { }
 
   ngOnInit() {
+    this.carpools$ = this.apiDatabaseService.getCarpools();
   }
 
   onCarpoolJoin(carpool: ICarpool) {

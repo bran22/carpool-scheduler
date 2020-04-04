@@ -1,6 +1,7 @@
 import { GeoJson } from './map';
 
 export interface ICarpool {
+  carpoolId: string;
   carpoolName: string;
   destinationName: string;
   destinationPoint: GeoJson;

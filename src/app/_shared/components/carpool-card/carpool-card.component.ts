@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { ICarpool } from '../../interfaces/carpool';
-import { MapboxStaticApiService } from '../../services/mapbox-static-api.service';
+import { ApiMapboxService } from '../../../_shared/services/api-mapbox.service';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
@@ -15,7 +15,7 @@ export class CarpoolCardComponent implements OnInit, OnChanges {
   headerImage$: Observable<string>; // for displaying mapbox card-header image
 
   constructor(
-    private mapboxStaticApiService: MapboxStaticApiService
+    private apiMapboxService: ApiMapboxService
   ) { }
 
   ngOnInit() {
@@ -31,7 +31,7 @@ export class CarpoolCardComponent implements OnInit, OnChanges {
     // for its static map using mapbox API
     const lat = carpool.meetupPoint.geometry.coordinates[1];
     const lon = carpool.meetupPoint.geometry.coordinates[0];
-    return this.mapboxStaticApiService.getStaticMap(lat, lon);
+    return this.apiMapboxService.getStaticMap(lat, lon);
   }
 
   onJoinClick(carpool: ICarpool) {

@@ -23,7 +23,6 @@ export class AuthService {
 
     // subscribe to auth changes
     this.afAuth.user.subscribe( user => {
-      console.log('auth state changed to', user);
       this.loggedInUser = user; // for components that only need the current value of the loggedInUser, use this
       if (user) {
         // emit whether user is logged in or not to the subject

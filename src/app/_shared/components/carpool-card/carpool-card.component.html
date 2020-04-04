@@ -1,7 +1,7 @@
 <p-card header="{{carpool.carpoolName}}" styleClass="card">
   <p-header>
     <!-- header, image of meetup location -->
-    <img [src]="headerImage | async">
+    <img [src]="headerImage$ | async">
   </p-header>
   <!-- body, carpool quick stats -->
   <div class="ui-g card-body">
@@ -16,6 +16,6 @@
   </div>
   <p-footer>
     <!-- footer, join button-->
-    <button pButton type="button" label="Join" icon="pi pi-check"></button>
+    <button pButton type="button" label="Join" icon="pi pi-check" (click)="onJoinClick(carpool)"></button>
   </p-footer>
 </p-card>

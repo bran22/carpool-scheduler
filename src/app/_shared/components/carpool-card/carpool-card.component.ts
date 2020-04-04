@@ -22,7 +22,6 @@ export class CarpoolCardComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    console.log(this.carpool);
     this.headerImage = this.getStaticMap(this.carpool);
   }
 

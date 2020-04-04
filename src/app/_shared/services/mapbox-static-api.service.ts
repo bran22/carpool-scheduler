@@ -18,7 +18,7 @@ export class MapboxStaticApiService {
   getStaticMap(lat: number, lon: number): Observable<any> {
     const accessToken = environment.mapbox.accessToken;
     // tslint:disable-next-line:max-line-length
-    const mapboxApiQuery = `https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/${lon},${lat},15/400x120?access_token=${accessToken}`;
+    const mapboxApiQuery = `https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s-car+285A98(${lon},${lat})/${lon},${lat},15/500x120?access_token=${accessToken}`;
     return this.http.get(mapboxApiQuery, { responseType: 'blob' }).pipe(
       map( blob => {
         const imageUrl = URL.createObjectURL(blob);

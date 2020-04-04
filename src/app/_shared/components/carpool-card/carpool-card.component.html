@@ -1,6 +1,6 @@
 <p-card header="{{carpool.carpoolName}}" styleClass="card-fullwidth">
   <p-header>
-    <!-- image of carpool route -->
+    <img [src]="headerImage | async">
   </p-header>
   <!-- card body, carpool data -->
   <div class="ui-g card-body">

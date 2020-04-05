@@ -20,7 +20,7 @@ export class JoinCarpoolComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.carpools$ = this.apiDatabaseService.getCarpools();
+    this.carpools$ = this.apiDatabaseService.indexCarpools();
   }
 
   onCarpoolJoin(carpool: ICarpool) {

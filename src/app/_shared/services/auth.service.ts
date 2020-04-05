@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { BehaviorSubject } from 'rxjs';
 import { auth } from 'firebase/app';  // for different login providers such as Google Auth API
 import { User } from 'firebase';
+import { ApiDatabaseService } from './api-database.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,8 @@ export class AuthService {
   loggedInUser: User;
 
   constructor(
-    public afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private apiDatabaseService: ApiDatabaseService
   ) { }
 
   subscribeToAuthChanges() {
@@ -25,8 +28,8 @@ export class AuthService {
     this.afAuth.user.subscribe( user => {
       this.loggedInUser = user; // for components that only need the current value of the loggedInUser, use this
       if (user) {
-        // emit whether user is logged in or not to the subject
-        this.isUserLoggedIn$.next(true);
+        this.isUserLoggedIn$.next(true);  // emit whether user is logged in or not to the subject
+        this.updateUsersCollection(user);
       } else {
         this.isUserLoggedIn$.next(false);
       }
@@ -45,6 +48,23 @@ export class AuthService {
 
   getLoggedInUser() {
     return this.loggedInUser;
+  }
+
+  updateUsersCollection(user: User) {
+    const userId = user.uid;
+    const name = user.displayName;
+    const email = user.email;
+    const photoUrl = user.photoURL;
+    this.apiDatabaseService.showUser(userId).subscribe( foundUser => {
+      if (!foundUser.exists) {
+        // if user does not exist in the users collection, create them
+        this.apiDatabaseService.createOrUpdateUser('create', userId, name, email, photoUrl);
+        console.log('user was created');
+      } else {
+        console.log('user was found and updated');
+        this.apiDatabaseService.createOrUpdateUser('update', userId, name, email, photoUrl);
+      }
+    });
   }
 
 }

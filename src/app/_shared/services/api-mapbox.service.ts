@@ -21,6 +21,7 @@ export class ApiMapboxService {
     const mapboxApiQuery = `https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s-car+285A98(${lon},${lat})/${lon},${lat},15/500x120?access_token=${accessToken}`;
     return this.http.get(mapboxApiQuery, { responseType: 'blob' }).pipe(
       map( blob => {
+        // need to convert image blob into image URL for displaying using img src
         const imageUrl = URL.createObjectURL(blob);
         const image = this.domSanitizer.bypassSecurityTrustUrl(imageUrl);
         return image;

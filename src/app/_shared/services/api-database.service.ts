@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/observable';
-import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ICarpool } from '../../_shared/interfaces/carpool';
 
@@ -15,11 +13,21 @@ export class ApiDatabaseService {
 
   // Firestore database requests go here
   // in general, use valueChanges() if you just want to get a read-only stream of data
-  // and use snapshotChanges() if you need the documentIDs
+  // and use snapshotChanges() if you need metadata
 
-  getCarpools() {
-    // trying to get documentIds as well, see example here:
-    // https://github.com/angular/angularfire/blob/7eb3e51022c7381dfc94ffb9e12555065f060639/docs/firestore/collections.md#example
+  indexCarpools() {
     return this.db.collection<ICarpool>('carpools').valueChanges({idField: 'carpoolId'});
+  }
+
+  showUser(userId: string) {
+    return this.db.doc(`/users/${userId}`).get();
+  }
+
+  createOrUpdateUser(action: 'create' | 'update', userId: string, name: string, email: string, photoUrl: string) {
+    if (action === 'create') {
+      this.db.collection('users').doc(userId).set({name, email, photoUrl, points: 0});
+    } else {
+      this.db.collection('users').doc(userId).update({name, email, photoUrl});
+    }
   }
 }

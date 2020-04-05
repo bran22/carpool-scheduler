@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Observable } from 'rxjs/internal/Observable';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';  // for different login providers such as Google Auth API
 import { User } from 'firebase';
@@ -11,7 +11,7 @@ import { ApiDatabaseService } from './api-database.service';
 })
 export class AuthService {
 
-  isUserLoggedIn$: BehaviorSubject<boolean>;
+  loggedInUser$: Observable<User>;
   loggedInUser: User;
 
   constructor(
@@ -20,18 +20,13 @@ export class AuthService {
   ) { }
 
   subscribeToAuthChanges() {
-    // initialize boolean BehaviorSubject for sending login state updates when state changes
-    // we're using a BehaviorSubject because it also replays the latest state on Subscribe
-    this.isUserLoggedIn$ = new BehaviorSubject(false);
 
     // subscribe to auth changes
-    this.afAuth.user.subscribe( user => {
+    this.loggedInUser$ = this.afAuth.user;
+    this.loggedInUser$.subscribe( user => {
       this.loggedInUser = user; // for components that only need the current value of the loggedInUser, use this
       if (user) {
-        this.isUserLoggedIn$.next(true);  // emit whether user is logged in or not to the subject
         this.updateUsersCollection(user);
-      } else {
-        this.isUserLoggedIn$.next(false);
       }
     });
   }
@@ -47,6 +42,12 @@ export class AuthService {
   }
 
   getLoggedInUser() {
+    // returns the observable, so we can make real-time changes
+    return this.loggedInUser$;
+  }
+
+  getLoggedInUserData() {
+    // returns just the stashed data, so we can reference specific properties for one-off use
     return this.loggedInUser;
   }
 
@@ -56,7 +57,7 @@ export class AuthService {
     const email = user.email;
     const photoUrl = user.photoURL;
     this.apiDatabaseService.showUser(userId).subscribe( foundUser => {
-      if (!foundUser.exists) {
+      if (!foundUser) {
         // if user does not exist in the users collection, create them
         this.apiDatabaseService.createOrUpdateUser('create', userId, name, email, photoUrl);
         console.log('user was created');

@@ -25,7 +25,7 @@ export class ViewCarpoolsComponent implements OnInit {
 
   onCarpoolJoin(carpool: ICarpool) {
     console.log(carpool);
-    const user: User = this.authService.getLoggedInUser();
+    const user: User = this.authService.getLoggedInUserData();
   }
 
 }

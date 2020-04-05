@@ -19,8 +19,9 @@ import {MenubarModule} from 'primeng/menubar';
 import {InputTextModule} from 'primeng/inputtext';
 import {CheckboxModule} from 'primeng/checkbox';
 import {CalendarModule} from 'primeng/calendar';
-import { ButtonModule } from 'primeng/button';
+import {ButtonModule} from 'primeng/button';
 import {CardModule} from 'primeng/card';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
 
 
 // authored components
@@ -59,7 +60,8 @@ import { CarpoolCardComponent } from './_shared/components/carpool-card/carpool-
     CheckboxModule,
     CalendarModule,
     ButtonModule,
-    CardModule
+    CardModule,
+    OverlayPanelModule
   ],
   providers: [],
   bootstrap: [AppComponent]

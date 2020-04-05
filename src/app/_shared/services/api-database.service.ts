@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ICarpool } from '../../_shared/interfaces/carpool';
+import { map } from 'rxjs/operators';
+import { AppUser } from '../interfaces/app-user';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +22,7 @@ export class ApiDatabaseService {
   }
 
   showUser(userId: string) {
-    return this.db.doc(`/users/${userId}`).get();
+    return this.db.doc<AppUser>(`/users/${userId}`).valueChanges();
   }
 
   createOrUpdateUser(action: 'create' | 'update', userId: string, name: string, email: string, photoUrl: string) {

@@ -1,8 +1,16 @@
 
 <p-menubar [model]="navigationMenu">
   <div>
-    <ng-container *ngIf="displayName">Logged in as {{displayName}}</ng-container>
-    <button *ngIf="isUserLoggedIn" pButton label="Log Out" icon="pi pi-sign-out" class="ui-button-secondary" (click)="onLogoutClick()"></button>
-    <button *ngIf="!isUserLoggedIn" pButton label="Log In" icon="pi pi-sign-in" class="ui-button-info" (click)="onLoginClick()"></button>
+    <img class="avatar" *ngIf="loggedInUser$ | async" [src]="(loggedInUser$ | async)?.photoURL" (click)="profileMenu.toggle($event)">
+    <button *ngIf="!(loggedInUser$ | async)" pButton label="Log In" icon="pi pi-sign-in" class="ui-button-info" (click)="onLoginClick()"></button>
   </div>
 </p-menubar>
+
+<p-overlayPanel #profileMenu [showTransitionOptions]="'100ms'" [hideTransitionOptions]="'100ms'" [dismissable]="true">
+  <div class="profile-cont">
+    <p class="profile-text bold">{{(loggedInUser$ | async)?.displayName}}</p>
+    <p class="profile-text">Points: {{(appUser$ | async)?.points}}</p>
+    <br />
+    <button pButton label="Log Out" icon="pi pi-sign-out" class="ui-button-secondary" (click)="onLogoutClick(); profileMenu.hide($event)"></button>
+  </div>
+</p-overlayPanel>

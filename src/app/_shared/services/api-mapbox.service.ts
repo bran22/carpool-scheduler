@@ -17,8 +17,12 @@ export class ApiMapboxService {
 
   getStaticMap(lat: number, lon: number): Observable<any> {
     const accessToken = environment.mapbox.accessToken;
+    const style = 'styles/v1/mapbox/streets-v11/static';
+    const marker = `pin-s-car+285A98(${lon},${lat})`;
+    const zoom = 15;  // [0-20], higher number is more zoomed-in
+    const dimensions = '500x160';
     // tslint:disable-next-line:max-line-length
-    const mapboxApiQuery = `https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s-car+285A98(${lon},${lat})/${lon},${lat},15/500x120?access_token=${accessToken}`;
+    const mapboxApiQuery = `https://api.mapbox.com/${style}/${marker}/${lon},${lat},${zoom}/${dimensions}?access_token=${accessToken}`;
     return this.http.get(mapboxApiQuery, { responseType: 'blob' }).pipe(
       map( blob => {
         // need to convert image blob into image URL for displaying using img src

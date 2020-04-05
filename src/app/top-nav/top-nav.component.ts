@@ -31,8 +31,8 @@ export class TopNavComponent implements OnInit {
         visible: true
       },
       {
-        label: 'Join',
-        routerLink: ['/join'],
+        label: 'View Carpools',
+        routerLink: ['/view'],
         visible: false
       },
       {

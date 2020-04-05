@@ -1,0 +1,7 @@
+<h3 class="page-header">Available Carpools</h3>
+
+<ng-container *ngFor="let carpool of carpools$ | async">
+  <div class="ui-g-12 ui-md-6 ui-lg-4">
+    <app-carpool-card [carpool]="carpool" (selectedCarpool)="onCarpoolJoin($event)"></app-carpool-card>
+  </div>
+</ng-container>

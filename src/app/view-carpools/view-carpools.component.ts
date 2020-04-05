@@ -6,11 +6,11 @@ import { AuthService } from '../_shared/services/auth.service';
 import { ApiDatabaseService } from '../_shared/services/api-database.service';
 
 @Component({
-  selector: 'app-join-carpool',
-  templateUrl: './join-carpool.component.html',
-  styleUrls: ['./join-carpool.component.css']
+  selector: 'app-view-carpools',
+  templateUrl: './view-carpools.component.html',
+  styleUrls: ['./view-carpools.component.css']
 })
-export class JoinCarpoolComponent implements OnInit {
+export class ViewCarpoolsComponent implements OnInit {
 
   carpools$: Observable<ICarpool[]>;
 

@@ -29,7 +29,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { SchedulerComponent } from './scheduler/scheduler.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
-import { JoinCarpoolComponent } from './join-carpool/join-carpool.component';
+import { ViewCarpoolsComponent } from './view-carpools/view-carpools.component';
 import { MapboxComponent } from './mapbox/mapbox.component';
 import { CreateCarpoolComponent} from './create-carpool/create-carpool.component';
 import { CarpoolCardComponent } from './_shared/components/carpool-card/carpool-card.component';
@@ -39,7 +39,7 @@ import { CarpoolCardComponent } from './_shared/components/carpool-card/carpool-
     HomeComponent,
     SchedulerComponent,
     TopNavComponent,
-    JoinCarpoolComponent,
+    ViewCarpoolsComponent,
     MapboxComponent,
     CreateCarpoolComponent,
     CarpoolCardComponent

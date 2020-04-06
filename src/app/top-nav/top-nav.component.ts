@@ -68,7 +68,7 @@ export class TopNavComponent implements OnInit {
   setMenuItemVisibility(menu: MenuItem[], isUserLoggedIn: boolean) {
     // if login state changes, enable/disable menu items as needed
     menu.forEach( item => {
-      if (item.label === 'Home' || item.label === 'Scheduler') {
+      if (item.label === 'Home' || item.label === 'Scheduler' || item.label === 'View Carpools') {
         item.visible = true;
       } else {
         item.visible = isUserLoggedIn;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { AuthService } from '../_shared/services/auth.service';
+import { AuthService } from '../_shared/services/_index';
 
 @Component({
   selector: 'app-scheduler',

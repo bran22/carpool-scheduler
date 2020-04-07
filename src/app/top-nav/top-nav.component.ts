@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../_shared/services/auth.service';
+import { AuthService, ApiDatabaseService } from '../_shared/services/_index';
 import {MenuItem} from 'primeng/api';
+import { Observable } from 'rxjs';
+import { User } from 'firebase';
+import { AppUser } from '../_shared/interfaces/_index';
 
 @Component({
   selector: 'app-top-nav',
@@ -11,12 +14,13 @@ import {MenuItem} from 'primeng/api';
 export class TopNavComponent implements OnInit {
 
   navigationMenu: MenuItem[];
-  isUserLoggedIn: boolean;
-  displayName: string;
+  loggedInUser$: Observable<User>;
+  appUser$: Observable<AppUser>;
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private apiDatabaseService: ApiDatabaseService
   ) {
     this.navigationMenu = [
       {
@@ -31,8 +35,8 @@ export class TopNavComponent implements OnInit {
         visible: true
       },
       {
-        label: 'Join',
-        routerLink: ['/join'],
+        label: 'View Carpools',
+        routerLink: ['/view'],
         visible: false
       },
       {
@@ -48,27 +52,25 @@ export class TopNavComponent implements OnInit {
   }
 
   ngOnInit() {
-    // top nav subscribes to the BehaviorSubject of whether a user is logged in
-    // so that whenever that changes, we can update the view accordingly
-    this.authService.isUserLoggedIn$.subscribe( res => {
-      this.isUserLoggedIn = res;
-      const userData = this.authService.loggedInUser ? this.authService.loggedInUser : null;
-      if (userData) {
-        this.displayName = userData.displayName;
-      } else {
-        this.displayName = null;
+    this.loggedInUser$ = this.authService.loggedInUser$;
+    this.loggedInUser$.subscribe( user => {
+      const isUserLoggedIn = user ? true : false;
+      // if login state changes, enable/disable menu items
+      this.navigationMenu = this.setMenuItemVisibility(this.navigationMenu, isUserLoggedIn);
+
+      if (isUserLoggedIn) {
+        this.appUser$ = this.apiDatabaseService.showUser(user.uid);
       }
-      this.navigationMenu = this.setMenuItemVisibility(this.navigationMenu);
     });
   }
 
-  setMenuItemVisibility(menu: MenuItem[]) {
+  setMenuItemVisibility(menu: MenuItem[], isUserLoggedIn: boolean) {
     // if login state changes, enable/disable menu items as needed
     menu.forEach( item => {
       if (item.label === 'Home' || item.label === 'Scheduler') {
         item.visible = true;
       } else {
-        item.visible = this.isUserLoggedIn;
+        item.visible = isUserLoggedIn;
       }
     });
     return menu;

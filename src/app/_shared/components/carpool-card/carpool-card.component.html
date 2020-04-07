@@ -1,0 +1,21 @@
+<p-card header="{{carpool.carpoolName}}" styleClass="card">
+  <p-header>
+    <!-- header, image of meetup location -->
+    <img [src]="headerImage$ | async">
+  </p-header>
+  <!-- body, carpool quick stats -->
+  <div class="ui-g card-body">
+    <div class="ui-g-6 ui-g-nopad">
+      {{carpool.meetupName}} >> {{carpool.destinationName}}
+    </div>
+    <div class="ui-g-6 ui-g-nopad">
+      <div class="ui-g-4 ui-g-nopad" title="Meetup Time"><i class="pi pi-clock"></i>{{carpool.meetupTime}}</div>
+      <div class="ui-g-4 ui-g-nopad" title="Meetups per Week"><i class="pi pi-calendar"></i>{{carpool.meetupDays.length}}/week</div>
+      <div class="ui-g-4 ui-g-nopad" title="Participants"><i class="pi pi-users"></i>{{participantsList.length}}</div>
+    </div>
+  </div>
+  <p-footer>
+    <button *ngIf="!userIsParticipant" pButton type="button" label="Join" (click)="onJoinClick(carpool)"></button>
+    <button *ngIf="userIsParticipant" pButton type="button" label="Joined" icon="pi pi-check" class="ui-button-secondary" disabled></button>
+  </p-footer>
+</p-card>

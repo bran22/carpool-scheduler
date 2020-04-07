@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AngularFirestore } from '@angular/fire/firestore';
 
-import { GeoJson } from './map';
+import { GeoJson } from '../_shared/interfaces/map';
 import * as mapboxgl from 'mapbox-gl';
 
 @Injectable({

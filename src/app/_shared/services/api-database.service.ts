@@ -21,19 +21,15 @@ export class ApiDatabaseService {
   }
 
   addUserToCarpool(carpoolId: string, userId: string) {
-    console.log(`updating ${carpoolId} with ${userId}`);
+    // console.log(`updating ${carpoolId} with ${userId}`);
     return this.showUser(userId).pipe(
       // feth user data from db first
       switchMap(appUser => {
-        console.log('got appuser', appUser);
-        return this.db.collection('carpools').doc(`${carpoolId}`).update({
-          // add user's name (from database) to carpool participants list
-          participants: {
-            id: userId,
-            name: appUser.name,
-            owner: false
-          }
-        });
+        // then, add user's name (from database) to carpool participants list
+        const newParticipant = {
+          participants: {[userId]: appUser.name}
+        };
+        return this.db.collection('carpools').doc(`${carpoolId}`).set(newParticipant, {merge: true});
       })
     );
   }

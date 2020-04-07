@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../_shared/services/auth.service';
-import { ApiDatabaseService } from '../_shared/services/api-database.service';
+import { AuthService, ApiDatabaseService } from '../_shared/services/_index';
 import {MenuItem} from 'primeng/api';
 import { Observable } from 'rxjs';
 import { User } from 'firebase';
-import { AppUser } from '../_shared/interfaces/app-user';
+import { AppUser } from '../_shared/interfaces/_index';
 
 @Component({
   selector: 'app-top-nav',

@@ -1,5 +1,4 @@
-import { GeoJson } from './map';
-import { CollectionReference } from '@angular/fire/firestore';
+import { CarpoolParticipant, GeoJson } from './_index';
 
 export interface ICarpool {
   carpoolId: string;
@@ -10,5 +9,5 @@ export interface ICarpool {
   meetupPoint: GeoJson;
   meetupTime: string;
   meetupDays: Array<number>;
-  participants: Array<CollectionReference>;
+  participants: Array<CarpoolParticipant>;
 }

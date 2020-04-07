@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ICarpool } from '../_shared/interfaces/carpool';
+import { ICarpool } from '../_shared/interfaces/_index';
 import { User } from 'firebase';
-import { AuthService } from '../_shared/services/auth.service';
-import { ApiDatabaseService } from '../_shared/services/api-database.service';
+import { ApiDatabaseService, AuthService } from '../_shared/services/_index';
 
 @Component({
   selector: 'app-view-carpools',
@@ -24,8 +23,10 @@ export class ViewCarpoolsComponent implements OnInit {
   }
 
   onCarpoolJoin(carpool: ICarpool) {
-    console.log(carpool);
     const user: User = this.authService.getLoggedInUserData();
+    this.apiDatabaseService.addUserToCarpool(carpool.carpoolId, user.uid).subscribe(
+      res => console.log(res)
+    );
   }
 
 }

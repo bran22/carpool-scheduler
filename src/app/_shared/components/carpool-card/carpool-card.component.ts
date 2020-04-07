@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { ICarpool } from '../../interfaces/carpool';
-import { ApiMapboxService } from '../../../_shared/services/api-mapbox.service';
+import { ICarpool } from '../../interfaces/_index';
+import { AuthService, ApiMapboxService } from '../../../_shared/services/_index';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
@@ -13,9 +13,11 @@ export class CarpoolCardComponent implements OnInit, OnChanges {
   @Input() carpool: ICarpool; // a carpool object injected into this component
   @Output() selectedCarpool = new EventEmitter<ICarpool>(); // for emitting carpool objects that were selected by the user
   headerImage$: Observable<string>; // for displaying mapbox card-header image
+  userIsParticipant: boolean; // for displaying different "join" button
 
   constructor(
-    private apiMapboxService: ApiMapboxService
+    private apiMapboxService: ApiMapboxService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -24,6 +26,12 @@ export class CarpoolCardComponent implements OnInit, OnChanges {
   ngOnChanges() {
     // when input changes, fetch its respective static map
     this.headerImage$ = this.getStaticMap(this.carpool);
+
+    // when input changes, see if current user is a participant of the carpool
+    const foundParticipant = this.carpool.participants.find( participant => {
+      return participant.id === this.authService.loggedInUser.uid;
+    });
+    this.userIsParticipant = foundParticipant ? true : false;
   }
 
   getStaticMap(carpool: ICarpool) {

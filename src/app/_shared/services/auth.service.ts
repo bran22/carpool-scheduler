@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';  // for different login providers such as Google Auth API
@@ -18,7 +19,8 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
     private apiDatabaseService: ApiDatabaseService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) { }
 
   subscribeToAuthChanges() {
@@ -41,6 +43,8 @@ export class AuthService {
   logout() {
     // sign the user out
     this.afAuth.auth.signOut();
+    this.router.navigateByUrl('/home');
+    this.messageService.add({severity: 'success', summary: 'Logged Out', detail: `You have been logged out!`});
   }
 
   getLoggedInUser() {

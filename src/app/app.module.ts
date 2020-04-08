@@ -28,7 +28,6 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { SchedulerComponent } from './scheduler/scheduler.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
 import { ViewCarpoolsComponent } from './view-carpools/view-carpools.component';
 import { MapboxComponent } from './mapbox/mapbox.component';
@@ -38,7 +37,6 @@ import { CarpoolCardComponent } from './_shared/components/carpool-card/carpool-
   declarations: [
     AppComponent,
     HomeComponent,
-    SchedulerComponent,
     TopNavComponent,
     ViewCarpoolsComponent,
     MapboxComponent,

@@ -24,14 +24,9 @@ export class TopNavComponent implements OnInit {
   ) {
     this.navigationMenu = [
       {
-        label: 'Home',
+        label: 'Carpool Scheduler',
         icon: 'pi pi-home',
         routerLink: ['/home'],
-        visible: true
-      },
-      {
-        label: 'Scheduler',
-        routerLink: ['/scheduler'],
         visible: true
       },
       {
@@ -63,7 +58,7 @@ export class TopNavComponent implements OnInit {
   setMenuItemVisibility(menu: MenuItem[], isUserLoggedIn: boolean) {
     // if login state changes, enable/disable menu items as needed
     menu.forEach( item => {
-      if (item.label === 'Home' || item.label === 'Scheduler') {
+      if (item.label === 'Carpool Scheduler') {
         item.visible = true;
       } else {
         item.visible = isUserLoggedIn;

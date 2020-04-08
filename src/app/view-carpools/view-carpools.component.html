@@ -1,4 +1,9 @@
-<h3 class="page-header">Available Carpools</h3>
+
+<div class="filter-selector">
+  <p-selectButton (click)="onFilterChange()" [options]="viewSelector" [(ngModel)]="selectedView"></p-selectButton>
+</div>
+
+<br />
 
 <ng-container *ngFor="let carpool of carpools$ | async">
   <div class="ui-g-12 ui-md-6 ui-lg-4">

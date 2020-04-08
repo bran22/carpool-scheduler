@@ -22,7 +22,8 @@ import {CalendarModule} from 'primeng/calendar';
 import {ButtonModule} from 'primeng/button';
 import {CardModule} from 'primeng/card';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
-
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
 
 // authored components
 import { AppRoutingModule } from './app-routing.module';
@@ -59,9 +60,10 @@ import { CarpoolCardComponent } from './_shared/components/carpool-card/carpool-
     CalendarModule,
     ButtonModule,
     CardModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    ToastModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

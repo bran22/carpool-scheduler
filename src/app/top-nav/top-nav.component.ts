@@ -26,7 +26,7 @@ export class TopNavComponent implements OnInit {
       {
         label: 'Home',
         icon: 'pi pi-home',
-        routerLink: ['/'],
+        routerLink: ['/home'],
         visible: true
       },
       {
@@ -41,11 +41,7 @@ export class TopNavComponent implements OnInit {
       },
       {
         label: 'Create',
-        routerLink: ['/create']
-      },
-      {
-        label: 'blah',
-        routerLink: ['/'],
+        routerLink: ['/create'],
         visible: false
       }
     ];

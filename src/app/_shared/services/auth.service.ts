@@ -32,8 +32,8 @@ export class AuthService {
   }
 
   login() {
-    // show Google Authenticator popup window
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+    // send user to Google Authenticator
+    this.afAuth.auth.signInWithRedirect(new auth.GoogleAuthProvider());
   }
 
   logout() {

@@ -25,6 +25,7 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import {SelectButtonModule} from 'primeng/selectbutton';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 // authored components
 import { AppRoutingModule } from './app-routing.module';
@@ -63,7 +64,8 @@ import { CarpoolCardComponent } from './_shared/components/carpool-card/carpool-
     CardModule,
     OverlayPanelModule,
     ToastModule,
-    SelectButtonModule
+    SelectButtonModule,
+    ProgressSpinnerModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

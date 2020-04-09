@@ -20,6 +20,11 @@ export class ApiDatabaseService {
     return this.db.collection<ICarpool>('carpools').valueChanges({idField: 'carpoolId'});
   }
 
+  showCarpoolsWithParticipant(userId: string) {
+    return this.db.collection<ICarpool>('carpools', ref => ref.where(`participants.${userId}`, '>', ''))
+      .valueChanges({idField: 'carpoolId'});
+  }
+
   addUserToCarpool(carpoolId: string, userId: string) {
     // console.log(`updating ${carpoolId} with ${userId}`);
     return this.showUser(userId).pipe(

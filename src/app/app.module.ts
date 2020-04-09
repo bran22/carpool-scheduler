@@ -26,6 +26,7 @@ import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {FieldsetModule} from 'primeng/fieldset';
 
 // authored components
 import { AppRoutingModule } from './app-routing.module';
@@ -67,7 +68,8 @@ import { ViewCarpoolDetailsComponent } from './view-carpool-details/view-carpool
     OverlayPanelModule,
     ToastModule,
     SelectButtonModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    FieldsetModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

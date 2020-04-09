@@ -1,7 +1,10 @@
 
 <ng-container *ngIf="carpool$ | async as carpool">
-  <app-mapbox [lat]="carpool.meetupPoint.geometry.coordinates[1]" [lon]="carpool.meetupPoint.geometry.coordinates[0]"></app-mapbox>
+  <div class="details-head">
+    <app-mapbox [lat]="carpool.meetupPoint.geometry.coordinates[1]" [lon]="carpool.meetupPoint.geometry.coordinates[0]"></app-mapbox>
+  </div>
+
+  <div class="details-body">
+    <h3>{{carpool.carpoolName}}</h3>
+  </div>
 </ng-container>
-
-<br />
-

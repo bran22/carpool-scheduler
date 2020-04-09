@@ -1,0 +1,12 @@
+.details-head {
+  position: relative;
+  width: 100vw;
+  height: 40vh;
+  /* extending background to overcome the global padding at app.component.css level */
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.details-body {
+  
+}

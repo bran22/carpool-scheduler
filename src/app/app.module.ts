@@ -33,7 +33,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
 import { ViewCarpoolsComponent } from './view-carpools/view-carpools.component';
-import { MapboxComponent } from './mapbox/mapbox.component';
+import { MapboxComponent } from './_shared/components/mapbox/mapbox.component';
 import { CreateCarpoolComponent} from './create-carpool/create-carpool.component';
 import { CarpoolCardComponent } from './_shared/components/carpool-card/carpool-card.component';
 import { ViewCarpoolDetailsComponent } from './view-carpool-details/view-carpool-details.component';

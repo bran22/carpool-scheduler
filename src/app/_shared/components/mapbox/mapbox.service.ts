@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { AngularFirestore } from '@angular/fire/firestore';
 
-import { GeoJson } from '../_shared/interfaces/map';
+import { GeoJson } from '../../interfaces/_index';
 import * as mapboxgl from 'mapbox-gl';
 
 @Injectable({

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { MapboxService } from './mapbox.service';
-import { GeoJson, FeatureCollection } from '../_shared/interfaces/map';
-import { environment } from '../../environments/environment';
+import { GeoJson, FeatureCollection } from '../../interfaces/_index';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-mapbox',
@@ -14,10 +14,8 @@ export class MapboxComponent implements OnInit {
   /// default settings
   map: mapboxgl.Map;
   style = 'mapbox://styles/mapbox/streets-v11';
-  // style = 'mapbox://styles/mapbox/outdoors-v9';
-  lat = 37.75;
-  lng = -122.41;
-  message = 'Hello World!';
+  @Input() lat: number;
+  @Input() lon: number;
 
   // data
   source: any;
@@ -30,33 +28,33 @@ export class MapboxComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.markers = this.mapboxService.getMarkers();
-    this.initializeMap();
+    // this.markers = this.mapboxService.getMarkers();
+    this.map = new mapboxgl.Map({
+      container: 'map',
+      style: this.style,
+      zoom: 13,
+      center: [this.lon, this.lat]
+    });
   }
 
   initializeMap() {
-    /// locate the user
-    if (navigator.geolocation) {
-       navigator.geolocation.getCurrentPosition(position => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-        this.map.flyTo({
-          center: [this.lng, this.lat]
-        });
-      });
-    }
+    // locate the user
+    // if (navigator.geolocation) {
+    //    navigator.geolocation.getCurrentPosition(position => {
+    //     this.lat = position.coords.latitude;
+    //     this.lng = position.coords.longitude;
+    //     this.map.flyTo({
+    //       center: [this.lng, this.lat]
+    //     });
+    //   });
+    // }
 
     this.buildMap();
 
   }
 
   buildMap() {
-    this.map = new mapboxgl.Map({
-      container: 'map',
-      style: this.style,
-      zoom: 13,
-      center: [this.lng, this.lat]
-    });
+
 
 
     // /// Add map controls

@@ -1,1 +1,7 @@
-<p>view-carpool-details works!</p>
+
+<ng-container *ngIf="carpool$ | async as carpool">
+  <app-mapbox [lat]="carpool.meetupPoint.geometry.coordinates[1]" [lon]="carpool.meetupPoint.geometry.coordinates[0]"></app-mapbox>
+</ng-container>
+
+<br />
+

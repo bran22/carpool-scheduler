@@ -7,6 +7,25 @@
   margin-right: -10px;
 }
 
-.details-body {
-  
+/* css for summary stats table */
+table {
+  width: 100%;
+  font-size: 1.1em;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 15px;
+  border-bottom: 1px solid #777;
+}
+
+tr:last-child td {
+  /* remove border from last row */
+  border-bottom: none;
+}
+
+.table-heading {
+  width: 40%;
+  font-weight: bold;
+  background-color: #eee;
 }

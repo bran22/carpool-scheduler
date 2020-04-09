@@ -36,6 +36,7 @@ import { ViewCarpoolsComponent } from './view-carpools/view-carpools.component';
 import { MapboxComponent } from './mapbox/mapbox.component';
 import { CreateCarpoolComponent} from './create-carpool/create-carpool.component';
 import { CarpoolCardComponent } from './_shared/components/carpool-card/carpool-card.component';
+import { ViewCarpoolDetailsComponent } from './view-carpool-details/view-carpool-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +45,8 @@ import { CarpoolCardComponent } from './_shared/components/carpool-card/carpool-
     ViewCarpoolsComponent,
     MapboxComponent,
     CreateCarpoolComponent,
-    CarpoolCardComponent
+    CarpoolCardComponent,
+    ViewCarpoolDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { ICarpool } from '../../interfaces/_index';
 import { AuthService, ApiMapboxService } from '../../../_shared/services/_index';
 import { Observable } from 'rxjs/internal/Observable';
@@ -18,7 +19,8 @@ export class CarpoolCardComponent implements OnInit, OnChanges {
 
   constructor(
     private apiMapboxService: ApiMapboxService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -47,6 +49,10 @@ export class CarpoolCardComponent implements OnInit, OnChanges {
 
   onJoinClick(carpool: ICarpool) {
     this.selectedCarpool.emit(carpool);
+  }
+
+  onViewClick(carpool: ICarpool) {
+    this.router.navigate([`/view/${carpool.carpoolId}`]);
   }
 
 }

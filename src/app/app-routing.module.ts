@@ -4,11 +4,13 @@ import { AngularFireAuthGuard, canActivate, loggedIn, redirectUnauthorizedTo } f
 
 import { HomeComponent } from './home/home.component';
 import { ViewCarpoolsComponent } from './view-carpools/view-carpools.component';
+import { ViewCarpoolDetailsComponent } from './view-carpool-details/view-carpool-details.component';
 import { MapboxComponent } from './mapbox/mapbox.component';
 import { CreateCarpoolComponent } from './create-carpool/create-carpool.component';
 
 const routes: Routes = [
-  { path: 'view', component: ViewCarpoolsComponent, ...canActivate(redirectUnauthorizedTo(['home'])) },
+  { path: 'view', component: ViewCarpoolsComponent, pathMatch: 'full', ...canActivate(redirectUnauthorizedTo(['home'])) },
+  { path: 'view/:id', component: ViewCarpoolDetailsComponent, ...canActivate(redirectUnauthorizedTo(['home'])) },
   { path: 'mapbox', component: MapboxComponent, ...canActivate(redirectUnauthorizedTo(['home'])) },
   { path: 'create', component: CreateCarpoolComponent, ...canActivate(redirectUnauthorizedTo(['home'])) },
   { path: 'home', component: HomeComponent },

@@ -1,0 +1,21 @@
+.background {
+  background-color: #007ad9;
+  height: calc(100vh - 43px); /* accounting for height of navbar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* extending background to overcome the global padding at app.component.css level */
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.splash-text {
+  color: white;
+  font-size: 3.5vw;
+}
+
+.ball {
+  position: absolute;
+  border-radius: 100%;
+  opacity: 0.7;
+}

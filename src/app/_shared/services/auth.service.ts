@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';  // for different login providers such as Google Auth API
 import { User } from 'firebase';
 import { ApiDatabaseService } from './api-database.service';
+import {MessageService} from 'primeng/api';
 
 
 @Injectable({
@@ -16,7 +18,9 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private apiDatabaseService: ApiDatabaseService
+    private apiDatabaseService: ApiDatabaseService,
+    private messageService: MessageService,
+    private router: Router
   ) { }
 
   subscribeToAuthChanges() {
@@ -32,13 +36,15 @@ export class AuthService {
   }
 
   login() {
-    // show Google Authenticator popup window
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+    // send user to Google Authenticator
+    this.afAuth.auth.signInWithRedirect(new auth.GoogleAuthProvider());
   }
 
   logout() {
     // sign the user out
     this.afAuth.auth.signOut();
+    this.router.navigateByUrl('/home');
+    this.messageService.add({severity: 'success', summary: 'Logged Out', detail: `You have been logged out!`});
   }
 
   getLoggedInUser() {
@@ -59,11 +65,13 @@ export class AuthService {
     this.apiDatabaseService.showUser(userId).subscribe( foundUser => {
       if (!foundUser) {
         // if user does not exist in the users collection, create them
+        // console.log('user was created');
         this.apiDatabaseService.createOrUpdateUser('create', userId, name, email, photoUrl);
-        console.log('user was created');
+        this.messageService.add({severity: 'success', summary: 'Signed Up', detail: `Your account has been created!`});
       } else {
-        console.log('user was found and updated');
+        // console.log('user was found and updated');
         this.apiDatabaseService.createOrUpdateUser('update', userId, name, email, photoUrl);
+        this.messageService.add({severity: 'success', summary: 'Logged In', detail: `Logged in as ${name}`});
       }
     });
   }

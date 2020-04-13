@@ -22,28 +22,32 @@ import {CalendarModule} from 'primeng/calendar';
 import {ButtonModule} from 'primeng/button';
 import {CardModule} from 'primeng/card';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
-
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
+import {SelectButtonModule} from 'primeng/selectbutton';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {FieldsetModule} from 'primeng/fieldset';
 
 // authored components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { SchedulerComponent } from './scheduler/scheduler.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
 import { ViewCarpoolsComponent } from './view-carpools/view-carpools.component';
-import { MapboxComponent } from './mapbox/mapbox.component';
+import { MapboxComponent } from './_shared/components/mapbox/mapbox.component';
 import { CreateCarpoolComponent} from './create-carpool/create-carpool.component';
 import { CarpoolCardComponent } from './_shared/components/carpool-card/carpool-card.component';
+import { ViewCarpoolDetailsComponent } from './view-carpool-details/view-carpool-details.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    SchedulerComponent,
     TopNavComponent,
     ViewCarpoolsComponent,
     MapboxComponent,
     CreateCarpoolComponent,
-    CarpoolCardComponent
+    CarpoolCardComponent,
+    ViewCarpoolDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -61,9 +65,13 @@ import { CarpoolCardComponent } from './_shared/components/carpool-card/carpool-
     CalendarModule,
     ButtonModule,
     CardModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    ToastModule,
+    SelectButtonModule,
+    ProgressSpinnerModule,
+    FieldsetModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

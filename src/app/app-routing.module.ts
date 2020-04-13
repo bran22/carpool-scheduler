@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
+import { AngularFireAuthGuard, canActivate, loggedIn, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
 import { HomeComponent } from './home/home.component';
-import { SchedulerComponent } from './scheduler/scheduler.component';
 import { ViewCarpoolsComponent } from './view-carpools/view-carpools.component';
-import { MapboxComponent } from './mapbox/mapbox.component';
+import { ViewCarpoolDetailsComponent } from './view-carpool-details/view-carpool-details.component';
 import { CreateCarpoolComponent } from './create-carpool/create-carpool.component';
 
 const routes: Routes = [
-  { path: 'scheduler', component: SchedulerComponent },
-  { path: 'view', component: ViewCarpoolsComponent },
-  { path: 'mapbox', component: MapboxComponent },
-  { path: 'create', component: CreateCarpoolComponent},
-  { path: '**', component: HomeComponent },
+  { path: 'view', component: ViewCarpoolsComponent, pathMatch: 'full', ...canActivate(redirectUnauthorizedTo(['home'])) },
+  { path: 'view/:id', component: ViewCarpoolDetailsComponent, ...canActivate(redirectUnauthorizedTo(['home'])) },
+  { path: 'create', component: CreateCarpoolComponent, ...canActivate(redirectUnauthorizedTo(['home'])) },
+  { path: 'home', component: HomeComponent },
+  { path: '**', redirectTo: 'home' },
 ];
 
 @NgModule({

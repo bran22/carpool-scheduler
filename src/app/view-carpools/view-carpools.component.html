@@ -1,7 +1,28 @@
-<h3 class="page-header">Available Carpools</h3>
 
-<ng-container *ngFor="let carpool of carpools$ | async">
-  <div class="ui-g-12 ui-md-6 ui-lg-4">
-    <app-carpool-card [carpool]="carpool" (selectedCarpool)="onCarpoolJoin($event)"></app-carpool-card>
+<div class="centered-element">
+  <p-selectButton (click)="onFilterChange()" [options]="viewSelector" [(ngModel)]="selectedView"></p-selectButton>
+</div>
+
+<br />
+
+<!-- async pipe to extract carpools from observable.  If data hasn't arrived, show loading-->
+<ng-container *ngIf="carpools$ | async as carpools; else loading">
+  <!-- if extracted data is empty, show noCarpools-->
+  <ng-container *ngIf="carpools.length; else noCarpools">
+    <!-- loop through carpools and render each as its own card-->
+    <div *ngFor="let carpool of carpools" class="ui-g-12 ui-md-6 ui-lg-6">
+      <app-carpool-card [carpool]="carpool" (selectedCarpool)="onCarpoolJoin($event)"></app-carpool-card>
+    </div>
+  </ng-container>
+
+  <ng-template #noCarpools>
+    <div class="centered-element">No carpools to show.  To join a carpool, change the filter to "All Carpools".</div>
+  </ng-template>
+</ng-container> <!-- end of async scope-->
+
+<!-- loading needs to be outside carpools$ scope so if that hasn't returned anything yet, this still appears -->
+<ng-template #loading>
+  <div class="centered-element">
+    <p-progressSpinner></p-progressSpinner>
   </div>
-</ng-container>
+</ng-template>

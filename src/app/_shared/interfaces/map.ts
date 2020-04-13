@@ -1,6 +1,6 @@
 export interface IGeometry {
     type: string;
-    coordinates: number[];
+    coordinates: [number, number];
 }
 
 export interface IGeoJson {

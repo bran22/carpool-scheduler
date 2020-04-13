@@ -1,0 +1,43 @@
+
+<ng-container *ngIf="carpool$ | async as carpool">
+  <div class="details-head">
+    <app-mapbox [lat]="carpool.meetupPoint.geometry.coordinates[1]" [lon]="carpool.meetupPoint.geometry.coordinates[0]" [showMarker]="true" [markerJson]="marker"></app-mapbox>
+  </div>
+
+  <div class="ui-g-12 ui-lg-6">
+    <h3>{{carpool.carpoolName}}</h3>
+    <p>{{carpool | json}}</p>
+  </div>
+  <div class="ui-g-12 ui-lg-6">
+    <p-fieldset legend="Summary">
+      <table class="">
+        <tr>
+          <td class="table-heading">Carpool Owner:</td>
+          <td class="table-info" *ngFor="let owner of carpool.owner | keyvalue">{{owner.value}}</td>
+        </tr>
+        <tr>
+          <td class="table-heading">Destination:</td>
+          <td class="table-info"><a (click)="sendMarker(carpool.destinationPoint)">{{carpool.destinationName}}</a></td>
+        </tr>
+        <tr>
+          <td class="table-heading">Default Meetup Location:</td>
+          <td class="table-info"><a (click)="sendMarker(carpool.meetupPoint)">{{carpool.meetupName}}</a></td>
+        </tr>
+        <tr>
+          <td class="table-heading">Default Meetup Time:</td>
+          <td class="table-info">{{carpool.meetupTime}}</td>
+        </tr>
+        <tr>
+          <td class="table-heading">Default Meetup Days:</td>
+          <td class="table-info">{{carpool.meetupDays}}</td>
+        </tr>
+        <tr>
+          <td class="table-heading">Participants:</td>
+          <td class="table-info">
+            <p *ngFor="let participant of carpool.participants | keyvalue">{{participant.value}}</p>
+          </td>
+        </tr>
+      </table>
+    </p-fieldset>
+  </div>
+</ng-container>

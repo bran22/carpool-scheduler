@@ -9,5 +9,6 @@ export interface ICarpool {
   meetupPoint: GeoJson;
   meetupTime: string;
   meetupDays: Array<number>;
+  owner: any;
   participants: any;
 }

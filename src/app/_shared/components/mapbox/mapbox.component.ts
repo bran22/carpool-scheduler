@@ -11,11 +11,12 @@ import { environment } from '../../../../environments/environment';
 })
 export class MapboxComponent implements OnInit {
 
-  /// default settings
-  map: mapboxgl.Map;
-  style = 'mapbox://styles/mapbox/streets-v11';
+  // default settings
   @Input() lat: number;
   @Input() lon: number;
+  @Input() marker?: GeoJson;
+  map: mapboxgl.Map;
+  style = 'mapbox://styles/mapbox/streets-v11';
 
   // data
   source: any;
@@ -28,13 +29,41 @@ export class MapboxComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.markers = this.mapboxService.getMarkers();
+    // initialize map settings
     this.map = new mapboxgl.Map({
       container: 'map',
       style: this.style,
       zoom: 13,
       center: [this.lon, this.lat]
     });
+
+    // if marker wasn't passed in, initialize a default one
+    if (!this.marker) {
+      this.marker = {
+        geometry: {
+          coordinates: [this.lon, this.lat],
+          type: 'Point'
+        },
+        type: 'Feature',
+        properties: {
+          title: 'Meetup',
+          'marker-symbol': 'car-15',
+          'marker-size': 'small',
+        }
+      };
+    }
+
+    this.initializeMarker(this.marker);
+  }
+
+  initializeMarker(markerJson: GeoJson) {
+
+    const marker = document.createElement('div');
+    marker.className = 'marker';
+
+    new mapboxgl.Marker()
+    .setLngLat(markerJson.geometry.coordinates)
+    .addTo(this.map);
   }
 
   initializeMap() {

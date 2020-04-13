@@ -29,3 +29,7 @@ tr:last-child td {
   font-weight: bold;
   background-color: #eee;
 }
+
+a {
+  cursor: pointer;
+}

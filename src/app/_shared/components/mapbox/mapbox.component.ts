@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
-import { MapboxService } from './mapbox.service';
-import { GeoJson, FeatureCollection } from '../../interfaces/_index';
+import { GeoJson } from '../../interfaces/_index';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -9,22 +8,22 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './mapbox.component.html',
   styleUrls: ['./mapbox.component.css']
 })
-export class MapboxComponent implements OnInit {
+export class MapboxComponent implements OnInit, OnChanges {
 
-  // default settings
+  // inputs
   @Input() lat: number;
   @Input() lon: number;
-  @Input() marker?: GeoJson;
+  @Input() showMarker ? = false;  // for setting whether a marker is being provided, default false
+  @Input() markerJson?: GeoJson;  // for providing the marker coordinates
+
+  // default settings
   map: mapboxgl.Map;
   style = 'mapbox://styles/mapbox/streets-v11';
 
-  // data
-  source: any;
-  markers: any;
+  mapIsInitialized = false;
+  activeMarkers = [];
 
-  constructor(
-    private mapboxService: MapboxService
-  ) {
+  constructor() {
     mapboxgl.accessToken = environment.mapbox.accessToken;
   }
 
@@ -33,114 +32,70 @@ export class MapboxComponent implements OnInit {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: this.style,
-      zoom: 13,
+      zoom: 12,
       center: [this.lon, this.lat]
     });
 
-    // if marker wasn't passed in, initialize a default one
-    if (!this.marker) {
-      this.marker = {
-        geometry: {
-          coordinates: [this.lon, this.lat],
-          type: 'Point'
-        },
-        type: 'Feature',
-        properties: {
-          title: 'Meetup',
-          'marker-symbol': 'car-15',
-          'marker-size': 'small',
+    this.mapIsInitialized = true;
+    this.ngOnChanges();
+
+  }
+
+  ngOnChanges() {
+
+    // don't draw anything if the map has not finished initializing
+    if (this.mapIsInitialized) {
+
+      // if marker is requested...
+      if (this.showMarker) {
+
+        // ...and no coords are specified, initialize with map center as coordinates for marker
+        if (!this.markerJson) {
+          this.markerJson = {
+            geometry: {
+              coordinates: [this.lon, this.lat],
+              type: 'Point'
+            },
+            type: 'Feature'
+          };
         }
-      };
+
+        // else, use specified marker coordinates
+        this.drawMarker(this.markerJson);
+      }
+
     }
 
-    this.initializeMarker(this.marker);
   }
 
-  initializeMarker(markerJson: GeoJson) {
+  drawMarker(markerJson: GeoJson) {
 
-    const marker = document.createElement('div');
-    marker.className = 'marker';
+    // destroy all markers
+    this.clearMarkers();
 
-    new mapboxgl.Marker()
+    // create new marker
+    const marker = new mapboxgl.Marker({color: '#007ad9'})
     .setLngLat(markerJson.geometry.coordinates)
     .addTo(this.map);
+
+    // add reference to array so we can refer to it later
+    this.activeMarkers.push(marker);
+
+    this.flyMapToCoordinates(markerJson.geometry.coordinates);
   }
 
-  initializeMap() {
-    // locate the user
-    // if (navigator.geolocation) {
-    //    navigator.geolocation.getCurrentPosition(position => {
-    //     this.lat = position.coords.latitude;
-    //     this.lng = position.coords.longitude;
-    //     this.map.flyTo({
-    //       center: [this.lng, this.lat]
-    //     });
-    //   });
-    // }
-
-    this.buildMap();
-
+  clearMarkers() {
+    // destroy all markers
+    this.activeMarkers.forEach( marker => {
+      marker.remove();
+    });
   }
 
-  buildMap() {
-
-
-
-    // /// Add map controls
-    // this.map.addControl(new mapboxgl.NavigationControl());
-
-
-    // //// Add Marker on Click
-    // this.map.on('click', (event) => {
-    //   const coordinates = [event.lngLat.lng, event.lngLat.lat]
-    //   const newMarker   = new GeoJson(coordinates, { message: this.message })
-    //   this.mapboxService.createMarker(newMarker)
-    // })
-
-
-    // /// Add realtime firebase data on map load
-    // this.map.on('load', (event) => {
-
-    //   /// register source
-    //   this.map.addSource('firebase', {
-    //      type: 'geojson',
-    //      data: {
-    //        type: 'FeatureCollection',
-    //        features: []
-    //      }
-    //   });
-
-    //   /// get source
-    //   this.source = this.map.getSource('firebase')
-
-    //   /// subscribe to realtime database and set data source
-    //   this.markers.subscribe(markers => {
-    //       let data = new FeatureCollection(markers)
-    //       this.source.setData(data)
-    //   })
-
-    //   /// create map layers with realtime data
-    //   this.map.addLayer({
-    //     id: 'firebase',
-    //     source: 'firebase',
-    //     type: 'symbol',
-    //     layout: {
-    //       'text-field': '{message}',
-    //       'text-size': 24,
-    //       'text-transform': 'uppercase',
-    //       'icon-image': 'rocket-15',
-    //       'text-offset': [0, 1.5]
-    //     },
-    //     paint: {
-    //       'text-color': '#f16624',
-    //       'text-halo-color': '#fff',
-    //       'text-halo-width': 2
-    //     }
-    //   });
-
-    // });
-
+  flyMapToCoordinates(lonLat: [number, number]) {
+    // move map to the specified coordinates
+    this.map.flyTo({
+      center: lonLat
+    });
   }
-
 
 }

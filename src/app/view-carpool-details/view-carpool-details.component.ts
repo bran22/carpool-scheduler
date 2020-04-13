@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ICarpool } from '../_shared/interfaces/_index';
+import { ICarpool, GeoJson } from '../_shared/interfaces/_index';
 import { ApiDatabaseService } from '../_shared/services/_index';
 
 @Component({
@@ -14,12 +14,15 @@ export class ViewCarpoolDetailsComponent implements OnInit {
   carpoolId: string;
   carpool$: Observable<ICarpool>;
 
+  marker: GeoJson;  // marker to be sent to mapbox component for drawing
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private apiDatabaseService: ApiDatabaseService
   ) { }
 
   ngOnInit(): void {
+
     // store carpoolId from route params
     this.activatedRoute.params.subscribe( res => {
       this.carpoolId = res.id;
@@ -28,4 +31,7 @@ export class ViewCarpoolDetailsComponent implements OnInit {
 
   }
 
+  sendMarker(point: GeoJson): void {
+    this.marker = point;
+  }
 }

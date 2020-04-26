@@ -35,6 +35,7 @@ export class MapboxComponent implements OnInit, OnChanges {
       zoom: 12,
       center: [this.lon, this.lat]
     });
+    this.addClickListener();
 
     this.mapIsInitialized = true;
     this.ngOnChanges();
@@ -66,6 +67,14 @@ export class MapboxComponent implements OnInit, OnChanges {
 
     }
 
+  }
+
+  addClickListener() {
+    // https://docs.mapbox.com/mapbox-gl-js/example/queryrenderedfeatures-around-point/
+    // https://docs.mapbox.com/mapbox-gl-js/example/mouse-position/
+    this.map.on('click', event => {
+      console.log(event.lngLat.wrap());
+    });
   }
 
   drawMarker(markerJson: GeoJson) {

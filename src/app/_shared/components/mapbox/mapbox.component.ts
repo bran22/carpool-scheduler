@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, AfterViewInit, Input } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { GeoJson } from '../../interfaces/_index';
 import { environment } from '../../../../environments/environment';
@@ -8,7 +8,7 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './mapbox.component.html',
   styleUrls: ['./mapbox.component.css']
 })
-export class MapboxComponent implements OnInit, OnChanges {
+export class MapboxComponent implements OnInit, AfterViewInit, OnChanges {
 
   // inputs
   @Input() lat: number;
@@ -18,6 +18,7 @@ export class MapboxComponent implements OnInit, OnChanges {
 
   // default settings
   map: mapboxgl.Map;
+  mapId: string;
   style = 'mapbox://styles/mapbox/streets-v11';
 
   mapIsInitialized = false;
@@ -28,9 +29,15 @@ export class MapboxComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    // randomly generate a map container ID so that we can have multiple map instances without colliding
+    this.mapId = `map_${Math.floor(Math.random() * 10000000)}`;
+  }
+
+  ngAfterViewInit() {
     // initialize map settings
+    // need to do this in AfterViewInit so that the generated mapID has time to be initialized in the DOM
     this.map = new mapboxgl.Map({
-      container: 'map',
+      container: this.mapId,
       style: this.style,
       zoom: 12,
       center: [this.lon, this.lat]
@@ -39,7 +46,6 @@ export class MapboxComponent implements OnInit, OnChanges {
 
     this.mapIsInitialized = true;
     this.ngOnChanges();
-
   }
 
   ngOnChanges() {

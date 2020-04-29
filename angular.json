@@ -144,5 +144,8 @@
       }
     }
   },
-  "defaultProject": "carpool-scheduler"
+  "defaultProject": "carpool-scheduler",
+  "cli": {
+    "analytics": "ccc1b449-0821-40ba-9469-31355211c122"
+  }
 }

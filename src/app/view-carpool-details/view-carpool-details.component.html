@@ -4,12 +4,9 @@
     <app-mapbox [lat]="carpool.meetupPoint.geometry.coordinates[1]" [lon]="carpool.meetupPoint.geometry.coordinates[0]" [showMarker]="true" [markerJson]="marker"></app-mapbox>
   </div>
 
-  <div class="ui-g-12 ui-lg-6" *ngIf="latestRide$ | async as rides">
+  <div class="ui-g-12 ui-lg-6" *ngIf="latestRide$ | async as latestRide">
     <h3>{{carpool.carpoolName}}</h3>
-    <p>{{latestRide$ | async | json}}</p>
-    <!-- <ng-container *ngFor="let ride of rides">
-      <app-ride-card [ride]="ride"></app-ride-card>
-    </ng-container> -->
+    <app-ride-card [ride]="latestRide"></app-ride-card>
   </div>
   <div class="ui-g-12 ui-lg-6">
     <p-fieldset legend="Summary">

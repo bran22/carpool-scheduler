@@ -15,7 +15,8 @@ export interface ICarpool {
 
 export interface ICarpoolRide {
   carpoolId: string;
-  potentialParticipants: string[];
+  confirmedParticipants: [];
+  potentialParticipants: [];
   rideDate: {
     seconds: number;
     nanoseconds: number;

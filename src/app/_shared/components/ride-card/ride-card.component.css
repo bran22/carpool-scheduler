@@ -1,0 +1,13 @@
+.ride-card {
+  font-size: 1.1em;
+}
+
+.date-block {
+  text-align: center;
+}
+
+.date-block-day {
+  font-size: 2.5em;
+  margin-top: -5px;
+  margin-bottom: -5px;
+}

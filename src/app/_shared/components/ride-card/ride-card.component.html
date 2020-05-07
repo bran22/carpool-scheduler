@@ -1,1 +1,20 @@
-<p>{{ride | json}}</p>
+<p-card>
+  <div class="p-grid ride-card">
+
+    <div class="p-col-2">
+      <div class="date-block">
+        <p>{{ride.rideDate.seconds * 1000 | date:'MMM'}}</p>
+        <p class="date-block-day">{{ride.rideDate.seconds * 1000 | date:'d'}}</p>
+        <p>{{ride.rideDate.seconds * 1000 | date:'yyyy'}}</p>
+      </div>
+    </div>
+
+    <div class="p-col">
+      <p>
+        <strong>Confirmed Participants:&nbsp;</strong>
+        <span *ngFor="let person of ride.confirmedParticipants">{{person.name}} </span>
+      </p>
+    </div>
+
+  </div>
+</p-card>

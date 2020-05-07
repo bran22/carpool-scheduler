@@ -66,9 +66,10 @@ export class ApiDatabaseService {
       switchMap( ride => {
         return this.db.collection<ICarpoolPreference>(`rides/${ride.rideId}/ridePreferences`).valueChanges({idField: 'userId'}).pipe(
           map( prefs => {
-            // since this returns ICarpoolPreference[], add the ride details (carpoolId, etc) to each preference
-            return prefs.map( pref => {
-              return {...pref, ...ride};
+            // since this returns ICarpoolPreference[], add this as a child property to the original ride
+            return Object.assign( {}, {
+              ...ride,
+              ridePreferences: prefs
             });
           })
         );

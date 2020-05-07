@@ -20,6 +20,7 @@ export interface ICarpoolRide {
     seconds: number;
     nanoseconds: number;
   };
+  ridePreferences?: ICarpoolPreference[];
 }
 
 export interface ICarpoolPreference {

@@ -2,3 +2,7 @@
   font-size: 1.2em;
   color: #666;
 }
+
+.nopad {
+  padding: 0;
+}

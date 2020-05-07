@@ -4,14 +4,18 @@
     <img [src]="headerImage$ | async">
   </p-header>
   <!-- body, carpool quick stats -->
-  <div class="ui-g card-body">
-    <div class="ui-g-6 ui-g-nopad">
+  <div class="p-grid card-body">
+    <div class="p-col-12 p-xl-6">
       {{carpool.meetupName}} >> {{carpool.destinationName}}
     </div>
-    <div class="ui-g-6 ui-g-nopad">
-      <div class="ui-g-4 ui-g-nopad" title="Meetup Time"><i class="pi pi-clock"></i>{{carpool.meetupTime}}</div>
-      <div class="ui-g-4 ui-g-nopad" title="Meetups per Week"><i class="pi pi-calendar"></i>{{carpool.meetupDays.length}}/week</div>
-      <div class="ui-g-4 ui-g-nopad" title="Participants"><i class="pi pi-users"></i>{{participantsList.length}}</div>
+    <div class="p-col-12 p-xl-6">
+
+      <div class="p-grid">
+        <div class="p-col-4" title="Meetup Time"><i class="pi pi-clock"></i>{{carpool.meetupTime}}</div>
+        <div class="p-col-4" title="Meetups per Week"><i class="pi pi-calendar"></i>{{carpool.meetupDays.length}}/week</div>
+        <div class="p-col-4" title="Participants"><i class="pi pi-users"></i>{{participantsList.length}}</div>
+      </div>
+
     </div>
   </div>
   <p-footer>

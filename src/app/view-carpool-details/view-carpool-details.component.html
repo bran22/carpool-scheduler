@@ -6,7 +6,7 @@
 
   <div class="ui-g-12 ui-lg-6">
     <h3>{{carpool.carpoolName}}</h3>
-    <p>{{carpool | json}}</p>
+    <p>{{latestRide$ | async | json}}</p>
   </div>
   <div class="ui-g-12 ui-lg-6">
     <p-fieldset legend="Summary">

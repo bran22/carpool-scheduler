@@ -13,6 +13,7 @@ export class ViewCarpoolDetailsComponent implements OnInit {
 
   carpoolId: string;
   carpool$: Observable<ICarpool>;
+  latestRide$: Observable<any>;
 
   marker: GeoJson;  // marker to be sent to mapbox component for drawing
 
@@ -27,6 +28,7 @@ export class ViewCarpoolDetailsComponent implements OnInit {
     this.activatedRoute.params.subscribe( res => {
       this.carpoolId = res.id;
       this.carpool$ = this.apiDatabaseService.showCarpool(this.carpoolId);
+      this.latestRide$ = this.apiDatabaseService.showLatestRideWithPreferences(this.carpoolId);
     });
 
   }

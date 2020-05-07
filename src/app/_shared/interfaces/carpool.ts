@@ -12,3 +12,21 @@ export interface ICarpool {
   owner: any;
   participants: any;
 }
+
+export interface ICarpoolRide {
+  carpoolId: string;
+  potentialParticipants: string[];
+  rideDate: {
+    seconds: number;
+    nanoseconds: number;
+  };
+}
+
+export interface ICarpoolPreference {
+  userId: string;
+  departTime: string;
+  isDriver: boolean;
+  isParticipating: boolean;
+  meetTime: string;
+  oneWay: string;
+}

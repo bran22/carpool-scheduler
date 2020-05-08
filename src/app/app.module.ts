@@ -27,6 +27,7 @@ import {MessageService} from 'primeng/api';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {FieldsetModule} from 'primeng/fieldset';
+import {DialogModule} from 'primeng/dialog';
 
 // authored components
 import { AppRoutingModule } from './app-routing.module';
@@ -39,6 +40,7 @@ import { CreateCarpoolComponent} from './create-carpool/create-carpool.component
 import { CarpoolCardComponent } from './_shared/components/carpool-card/carpool-card.component';
 import { ViewCarpoolDetailsComponent } from './view-carpool-details/view-carpool-details.component';
 import { RideCardComponent } from './_shared/components/ride-card/ride-card.component';
+import { FormSetRidePreferencesComponent } from './form-set-ride-preferences/form-set-ride-preferences.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +51,8 @@ import { RideCardComponent } from './_shared/components/ride-card/ride-card.comp
     CreateCarpoolComponent,
     CarpoolCardComponent,
     ViewCarpoolDetailsComponent,
-    RideCardComponent
+    RideCardComponent,
+    FormSetRidePreferencesComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ import { RideCardComponent } from './_shared/components/ride-card/ride-card.comp
     ToastModule,
     SelectButtonModule,
     ProgressSpinnerModule,
-    FieldsetModule
+    FieldsetModule,
+    DialogModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

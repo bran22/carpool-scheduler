@@ -11,8 +11,15 @@
 
     <div class="p-col">
       <p>
-        <strong>Confirmed Participants:&nbsp;</strong>
-        <span *ngFor="let person of ride.confirmedParticipants">{{person.name}} </span>
+        <strong>Confirmed:&nbsp;</strong>
+        <ng-container *ngFor="let person of ride.confirmedParticipants">
+          <span *ngFor="let name of person | keyvalue">{{name.value}} </span>
+        </ng-container>
+        <br />
+        <strong>Pending:&nbsp;</strong>
+        <ng-container *ngFor="let person of ride.potentialParticipants">
+          <span *ngFor="let name of person | keyvalue">{{name.value}} </span>
+        </ng-container>
       </p>
     </div>
 

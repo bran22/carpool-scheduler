@@ -6,9 +6,17 @@
 
   <div class="p-grid">
 
-    <div class="p-col-12 p-lg-6" *ngIf="latestRide$ | async as latestRide">
-      <h3>{{carpool.carpoolName}} - Latest Carpools</h3>
-      <app-ride-card [ride]="latestRide"></app-ride-card>
+    <div class="p-col-12 p-lg-6">
+      <h3>{{carpool.carpoolName}} - Latest Ride</h3>
+      <ng-container *ngIf="latestRide$ | async as latestRide">
+        <app-ride-card [ride]="latestRide"></app-ride-card>
+      </ng-container>
+
+      <h3>Upcoming Rides</h3>
+      <ng-container *ngIf="upcomingRides$ | async as upcomingRides">
+        <app-ride-card *ngFor="let ride of upcomingRides" [ride]="ride"></app-ride-card>
+      </ng-container>
+
     </div>
 
     <div class="p-col-12 p-lg-6">

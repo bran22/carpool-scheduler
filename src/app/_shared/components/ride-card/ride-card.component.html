@@ -3,9 +3,9 @@
 
     <div class="p-col-2">
       <div class="date-block">
-        <p>{{ride.rideDate.seconds * 1000 | date:'MMM'}}</p>
-        <p class="date-block-day">{{ride.rideDate.seconds * 1000 | date:'d'}}</p>
-        <p>{{ride.rideDate.seconds * 1000 | date:'yyyy'}}</p>
+        <p>{{ride.rideDate.toDate() | date:'MMM'}}</p>
+        <p class="date-block-day">{{ride.rideDate.toDate() | date:'d'}}</p>
+        <p>{{ride.rideDate.toDate() | date:'yyyy'}}</p>
       </div>
     </div>
 

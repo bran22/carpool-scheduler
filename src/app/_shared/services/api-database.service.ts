@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AppUser, ICarpool, ICarpoolRide, ICarpoolPreference } from '../interfaces/_index';
-import { Observable } from 'rxjs';
-import { map, switchMap, mergeMap, mergeAll } from 'rxjs/operators';
+import { map, switchMap, mergeAll } from 'rxjs/operators';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -47,9 +47,11 @@ export class ApiDatabaseService {
 
   showLatestRideForCarpool(carpoolId: string) {
     // get the latest ride given a specific carpoolID
+    console.log(moment().unix());
     return this.db.collection<ICarpoolRide>(
       'rides', ref => ref
         .where('carpoolId', '==', carpoolId)
+        .where('rideDate', '<', moment().toDate())
         .orderBy('rideDate', 'desc')
         .limit(1)
       )
@@ -75,6 +77,17 @@ export class ApiDatabaseService {
         );
       })
     );
+  }
+
+  showUpcomingRidesForCarpool(carpoolId: string) {
+    // show the upcoming rides given a specific carpoolID
+    return this.db.collection<ICarpoolRide>(
+      'rides', ref => ref
+        .where('carpoolId', '==', carpoolId)
+        .where('rideDate', '>=', moment().toDate())
+        .orderBy('rideDate', 'asc')
+      )
+      .valueChanges({idField: 'rideId'});
   }
 
   showUser(userId: string) {

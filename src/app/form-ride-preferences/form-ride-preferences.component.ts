@@ -17,7 +17,9 @@ export class FormRidePreferencesComponent implements OnInit {
 
   // form
   preferencesForm: any;
-  departTimeSelector: any;
+  defaultCustomEnum: any;
+  yesNoEnum: any;
+  oneWayEnum: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -25,9 +27,18 @@ export class FormRidePreferencesComponent implements OnInit {
     private apiDatabaseService: ApiDatabaseService,
   ) {
     // initialize select-options
-    this.departTimeSelector = [
-      {label: 'Default', value: true},
-      {label: 'Custom', value: false}
+    this.defaultCustomEnum = [
+      {label: 'Default', value: false},
+      {label: 'Custom', value: true}
+    ];
+    this.yesNoEnum = [
+      {label: 'Yes', value: true},
+      {label: 'No', value: false}
+    ];
+    this.oneWayEnum = [
+      {label: 'Both Ways', value: 'both-ways'},
+      {label: 'To Destination', value: 'to-destination'},
+      {label: 'From Destination', value: 'from-destination'}
     ];
   }
 
@@ -44,8 +55,13 @@ export class FormRidePreferencesComponent implements OnInit {
 
   initializeForm() {
     this.preferencesForm = this.formBuilder.group({
-      isDefaultDepartTime: ['', Validators.required],
-      departTime: []
+      isParticipating: [true, Validators.required],
+      oneWay: ['both-ways', Validators.required],
+      isDriver: [false, Validators.required],
+      isCustomMeetTime: [false, Validators.required],
+      customMeetTime: [],
+      isCustomDepartTime: [false, Validators.required],
+      customDepartTime: [],
     });
   }
 

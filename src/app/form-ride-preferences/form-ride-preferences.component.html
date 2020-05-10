@@ -4,8 +4,24 @@
 <form [formGroup]="preferencesForm">
   <div class="p-grid">
     <div class="p-col-12">
+      <h3>I'm in:</h3>
+      <p-selectButton [options]="yesNoEnum" formControlName="isParticipating"></p-selectButton>
+    </div>
+    <div class="p-col-12">
+      <h3>Ride Direction:</h3>
+      <p-selectButton [options]="oneWayEnum" formControlName="oneWay"></p-selectButton>
+    </div>
+    <div class="p-col-12">
+      <h3>I want to drive:</h3>
+      <p-selectButton [options]="yesNoEnum" formControlName="isDriver"></p-selectButton>
+    </div>
+    <div class="p-col-12">
       <h3>Meet Time:</h3>
-      <p-selectButton [options]="departTimeSelector" formControlName="isDefaultDepartTime"></p-selectButton>
+      <p-selectButton [options]="defaultCustomEnum" formControlName="isCustomMeetTime"></p-selectButton>
+    </div>
+    <div class="p-col-12">
+      <h3>Depart Time:</h3>
+      <p-selectButton [options]="defaultCustomEnum" formControlName="isCustomDepartTime"></p-selectButton>
     </div>
   </div>
 </form>

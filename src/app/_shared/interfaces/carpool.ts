@@ -29,9 +29,9 @@ export interface ICarpoolRide {
 
 export interface ICarpoolPreference {
   userId: string;
-  departTime: string;
+  customDepartTime: string;
   isDriver: boolean;
   isParticipating: boolean;
   meetTime: string;
-  oneWay: 'to-destination' | 'from-destination';
+  oneWay: 'both-ways' | 'to-destination' | 'from-destination';
 }

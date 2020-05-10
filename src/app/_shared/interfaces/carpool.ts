@@ -33,5 +33,5 @@ export interface ICarpoolPreference {
   isDriver: boolean;
   isParticipating: boolean;
   meetTime: string;
-  oneWay: string;
+  oneWay: 'to-destination' | 'from-destination';
 }

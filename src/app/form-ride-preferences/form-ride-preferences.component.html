@@ -1,2 +1,11 @@
+<button pButton type="button" label="test form" (click)="onTestFormClick()"></button>
 <p>{{ride$ | async | json}}</p>
-<p>{{preferences$ | async | json}}</p>
+
+<form [formGroup]="preferencesForm">
+  <div class="p-grid">
+    <div class="p-col-12">
+      <h3>Meet Time:</h3>
+      <p-selectButton [options]="departTimeSelector" formControlName="isDefaultDepartTime"></p-selectButton>
+    </div>
+  </div>
+</form>

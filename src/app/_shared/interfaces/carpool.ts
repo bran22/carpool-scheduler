@@ -15,11 +15,13 @@ export interface ICarpool {
 
 export interface ICarpoolRide {
   carpoolId: string;
+  carpoolName: string;
   confirmedParticipants: [];
   potentialParticipants: [];
   rideDate: {
     seconds: number;
     nanoseconds: number;
+    toDate(); // somehow, a built-in function to the timestamp data type pulled from firebase?!
   };
   ridePreferences?: ICarpoolPreference[];
 }

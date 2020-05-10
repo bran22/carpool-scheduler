@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICarpoolRide } from '../_shared/interfaces/_index';
 import { ApiDatabaseService, AuthService } from '../_shared/services/_index';
-import { User } from 'firebase';
 
 @Component({
   selector: 'app-view-rides',

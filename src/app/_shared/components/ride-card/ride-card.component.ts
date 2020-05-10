@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ICarpoolRide } from '../../interfaces/_index';
 
 @Component({
   selector: 'app-ride-card',
@@ -7,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class RideCardComponent implements OnInit {
 
-  @Input() ride: any;
+  @Input() ride: ICarpoolRide;
 
   constructor() { }
 

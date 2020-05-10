@@ -24,6 +24,7 @@ export interface ICarpoolRide {
     toDate(); // somehow, a built-in function to the timestamp data type pulled from firebase?!
   };
   ridePreferences?: ICarpoolPreference[];
+  rideId: string;
 }
 
 export interface ICarpoolPreference {

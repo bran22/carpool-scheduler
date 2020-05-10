@@ -15,4 +15,8 @@ export class RideCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSetPreferencesClick(rideId: string) {
+    console.log(rideId);
+  }
+
 }

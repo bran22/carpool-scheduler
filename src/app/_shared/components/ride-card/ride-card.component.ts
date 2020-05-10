@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { ICarpoolRide } from '../../interfaces/_index';
 
 @Component({
@@ -10,13 +11,16 @@ export class RideCardComponent implements OnInit {
 
   @Input() ride: ICarpoolRide;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
 
   onSetPreferencesClick(rideId: string) {
     console.log(rideId);
+    this.router.navigate([`/rides/preferences/${rideId}`]);
   }
 
 }

@@ -45,9 +45,18 @@ export class ApiDatabaseService {
     );
   }
 
+  showRide(rideId: string) {
+    // get the ride data given a single rideID
+    return this.db.doc<ICarpoolRide>(`rides/${rideId}`).valueChanges();
+  }
+
+  showRidePreferences(rideId: string) {
+    // get all ride-preferences from the subcollection, given a rideID
+    return this.db.collection<ICarpoolPreference>(`rides/${rideId}/ridePreferences`).valueChanges({idField: 'userId'});
+  }
+
   showLatestRideForCarpool(carpoolId: string) {
     // get the latest ride given a specific carpoolID
-    console.log(moment().unix());
     return this.db.collection<ICarpoolRide>(
       'rides', ref => ref
         .where('carpoolId', '==', carpoolId)
@@ -66,7 +75,7 @@ export class ApiDatabaseService {
     return this.showLatestRideForCarpool(carpoolId).pipe(
       // switch to a new observable (dump the old one), using rideID to query its subcollection of ridePreferences
       switchMap( ride => {
-        return this.db.collection<ICarpoolPreference>(`rides/${ride.rideId}/ridePreferences`).valueChanges({idField: 'userId'}).pipe(
+        return this.showRidePreferences(ride.rideId).pipe(
           map( prefs => {
             // since this returns ICarpoolPreference[], add this as a child property to the original ride
             return Object.assign( {}, {

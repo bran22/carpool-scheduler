@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ICarpoolPreference, ICarpoolRide } from '../_shared/interfaces/_index';
+import { ApiDatabaseService } from '../_shared/services/_index';
 
 @Component({
   selector: 'app-form-ride-preferences',
@@ -7,9 +11,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormRidePreferencesComponent implements OnInit {
 
-  constructor() { }
+  rideId: string;
+  ride$: Observable<ICarpoolRide>;
+  preferences$: Observable<ICarpoolPreference[]>;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private apiDatabaseService: ApiDatabaseService
+  ) { }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe( res => {
+      this.rideId = res.id;
+      console.log(this.rideId);
+      this.ride$ = this.apiDatabaseService.showRide(this.rideId);
+      this.preferences$ = this.apiDatabaseService.showRidePreferences(this.rideId);
+    });
   }
 
 }

@@ -40,7 +40,8 @@ import { CreateCarpoolComponent} from './create-carpool/create-carpool.component
 import { CarpoolCardComponent } from './_shared/components/carpool-card/carpool-card.component';
 import { ViewCarpoolDetailsComponent } from './view-carpool-details/view-carpool-details.component';
 import { RideCardComponent } from './_shared/components/ride-card/ride-card.component';
-import { FormSetRidePreferencesComponent } from './form-set-ride-preferences/form-set-ride-preferences.component';
+import { ViewRidesComponent } from './view-rides/view-rides.component';
+import { CreateRidePreferencesComponent } from './create-ride-preferences/create-ride-preferences.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +53,8 @@ import { FormSetRidePreferencesComponent } from './form-set-ride-preferences/for
     CarpoolCardComponent,
     ViewCarpoolDetailsComponent,
     RideCardComponent,
-    FormSetRidePreferencesComponent
+    ViewRidesComponent,
+    CreateRidePreferencesComponent
   ],
   imports: [
     BrowserModule,

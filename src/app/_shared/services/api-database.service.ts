@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AppUser, ICarpool, ICarpoolRide, ICarpoolPreference } from '../interfaces/_index';
+import { AppUser, ICarpool, ICarpoolRide, ICarpoolPreference, IUserIdAndName } from '../interfaces/_index';
 import { map, switchMap, mergeAll } from 'rxjs/operators';
 import * as moment from 'moment';
 
@@ -84,6 +84,17 @@ export class ApiDatabaseService {
     return this.db.collection<ICarpoolRide>(
       'rides', ref => ref
         .where('carpoolId', '==', carpoolId)
+        .where('rideDate', '>=', moment().toDate())
+        .orderBy('rideDate', 'asc')
+      )
+      .valueChanges({idField: 'rideId'});
+  }
+
+  showUpcomingRidesForUser(user: IUserIdAndName) {
+    // show the upcoming rides given a specific carpoolID
+    return this.db.collection<ICarpoolRide>(
+      'rides', ref => ref
+        .where('potentialParticipants', 'array-contains', user)
         .where('rideDate', '>=', moment().toDate())
         .orderBy('rideDate', 'asc')
       )

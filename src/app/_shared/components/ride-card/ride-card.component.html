@@ -17,7 +17,7 @@
         </ng-container>
         <br />
         <strong>Pending:&nbsp;</strong>
-        <ng-container *ngFor="let person of ride.potentialParticipants">
+        <ng-container *ngFor="let person of ride.confirmedParticipants">
           <span *ngFor="let name of person | keyvalue">{{name.value}} </span>
         </ng-container>
       </p>

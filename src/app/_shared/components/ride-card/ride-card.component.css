@@ -1,4 +1,8 @@
-.ride-card {
+.card-container {
+  padding-bottom: 10px;
+}
+
+.card-text {
   font-size: 1.1em;
 }
 

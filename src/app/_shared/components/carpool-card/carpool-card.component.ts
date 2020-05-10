@@ -52,7 +52,7 @@ export class CarpoolCardComponent implements OnInit, OnChanges {
   }
 
   onViewClick(carpool: ICarpool) {
-    this.router.navigate([`/view/${carpool.carpoolId}`]);
+    this.router.navigate([`/carpools/${carpool.carpoolId}`]);
   }
 
 }

@@ -1,27 +1,31 @@
-<p-card>
-  <div class="p-grid ride-card">
+<div class="card-container">
 
-    <div class="p-col-2">
-      <div class="date-block">
-        <p>{{ride.rideDate.toDate() | date:'MMM'}}</p>
-        <p class="date-block-day">{{ride.rideDate.toDate() | date:'d'}}</p>
-        <p>{{ride.rideDate.toDate() | date:'yyyy'}}</p>
+  <p-card>
+    <div class="p-grid card-text">
+  
+      <div class="p-col-2">
+        <div class="date-block">
+          <p>{{ride.rideDate.toDate() | date:'MMM'}}</p>
+          <p class="date-block-day">{{ride.rideDate.toDate() | date:'d'}}</p>
+          <p>{{ride.rideDate.toDate() | date:'yyyy'}}</p>
+        </div>
       </div>
+  
+      <div class="p-col">
+        <p>
+          <strong>Confirmed:&nbsp;</strong>
+          <ng-container *ngFor="let person of ride.confirmedParticipants">
+            <span *ngFor="let name of person | keyvalue">{{name.value}} </span>
+          </ng-container>
+          <br />
+          <strong>Pending:&nbsp;</strong>
+          <ng-container *ngFor="let person of ride.confirmedParticipants">
+            <span *ngFor="let name of person | keyvalue">{{name.value}} </span>
+          </ng-container>
+        </p>
+      </div>
+  
     </div>
+  </p-card>
 
-    <div class="p-col">
-      <p>
-        <strong>Confirmed:&nbsp;</strong>
-        <ng-container *ngFor="let person of ride.confirmedParticipants">
-          <span *ngFor="let name of person | keyvalue">{{name.value}} </span>
-        </ng-container>
-        <br />
-        <strong>Pending:&nbsp;</strong>
-        <ng-container *ngFor="let person of ride.confirmedParticipants">
-          <span *ngFor="let name of person | keyvalue">{{name.value}} </span>
-        </ng-container>
-      </p>
-    </div>
-
-  </div>
-</p-card>
+</div>

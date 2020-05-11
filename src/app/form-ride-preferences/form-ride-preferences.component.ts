@@ -20,6 +20,7 @@ export class FormRidePreferencesComponent implements OnInit {
   defaultCustomEnum: any;
   yesNoEnum: any;
   oneWayEnum: any;
+  toFromDestinationEnum: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -35,6 +36,10 @@ export class FormRidePreferencesComponent implements OnInit {
     this.yesNoEnum = [
       {label: 'Yes', value: true},
       {label: 'No', value: false}
+    ];
+    this.toFromDestinationEnum = [
+      {label: 'To Destination', value: 'to-destination'},
+      {label: 'From Destination', value: 'from-destination'}
     ];
   }
 
@@ -55,17 +60,19 @@ export class FormRidePreferencesComponent implements OnInit {
         userId: [user.userId, Validators.required],
         isParticipating: [userPrefs.isParticipating, Validators.required],
         oneWay: [userPrefs.oneWay, Validators.required],
+        oneWayDirection: [userPrefs.oneWayDirection],
         isDriver: [userPrefs.isDriver, Validators.required],
         isCustomMeetTime: [userPrefs.isCustomMeetTime, Validators.required],
-        customMeetTime: [userPrefs.customMeetTime],
+        customMeetTime: [userPrefs.customMeetTime ? userPrefs.customMeetTime.toDate() : null],
         isCustomDepartTime: [userPrefs.isCustomDepartTime, Validators.required],
-        customDepartTime: [userPrefs.customDepartTime],
+        customDepartTime: [userPrefs.customDepartTime ? userPrefs.customDepartTime.toDate() : null],
       });
     } else {
       this.preferencesForm = this.formBuilder.group({
         userId: [user.userId, Validators.required],
         isParticipating: [true, Validators.required],
         oneWay: [false, Validators.required],
+        oneWayDirection: [],
         isDriver: [false, Validators.required],
         isCustomMeetTime: [false, Validators.required],
         customMeetTime: [],
@@ -93,8 +100,28 @@ export class FormRidePreferencesComponent implements OnInit {
   }
 
   onSaveClick() {
+    // form validation
+
     this.apiDatabaseService.setRidePreferences(this.rideId, this.preferencesForm.value);
     console.log('save done');
+  }
+
+  onOneWayChange(isOneWay: boolean) {
+    // if user selects a both-way ride, then clea out the oneWayDirection value
+    if (!isOneWay) {
+      this.preferencesForm.patchValue(
+        {oneWayDirection: null}
+      );
+    }
+  }
+
+  onTimeChange(formControlName: string, isCustomTime: boolean) {
+    // if user selects Default for either meet or depart time, clear out the respective custom time value
+    if (!isCustomTime) {
+      this.preferencesForm.patchValue(
+        {[formControlName]: null}
+      );
+    }
   }
 
 }

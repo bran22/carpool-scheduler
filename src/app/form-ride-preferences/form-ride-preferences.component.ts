@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ICarpoolPreference, ICarpoolRide } from '../_shared/interfaces/_index';
-import { ApiDatabaseService } from '../_shared/services/_index';
+import { ApiDatabaseService, AuthService } from '../_shared/services/_index';
 
 @Component({
   selector: 'app-form-ride-preferences',
@@ -25,6 +25,7 @@ export class FormRidePreferencesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private apiDatabaseService: ApiDatabaseService,
+    private authService: AuthService
   ) {
     // initialize select-options
     this.defaultCustomEnum = [
@@ -35,11 +36,6 @@ export class FormRidePreferencesComponent implements OnInit {
       {label: 'Yes', value: true},
       {label: 'No', value: false}
     ];
-    this.oneWayEnum = [
-      {label: 'Both Ways', value: 'both-ways'},
-      {label: 'To Destination', value: 'to-destination'},
-      {label: 'From Destination', value: 'from-destination'}
-    ];
   }
 
   ngOnInit(): void {
@@ -49,20 +45,34 @@ export class FormRidePreferencesComponent implements OnInit {
       this.ride$ = this.apiDatabaseService.showRide(this.rideId);
       this.apiDatabaseService.showRidePreferences(this.rideId).subscribe( prefs => this.onRidePreferenceUpdate(prefs));
     });
-
-    this.initializeForm();
   }
 
-  initializeForm() {
-    this.preferencesForm = this.formBuilder.group({
-      isParticipating: [true, Validators.required],
-      oneWay: ['both-ways', Validators.required],
-      isDriver: [false, Validators.required],
-      isCustomMeetTime: [false, Validators.required],
-      customMeetTime: [],
-      isCustomDepartTime: [false, Validators.required],
-      customDepartTime: [],
-    });
+  initializeForm(userPrefs?: ICarpoolPreference) {
+    const user = this.authService.getLoggedInUserIdAndName();
+
+    if (userPrefs) {
+      this.preferencesForm = this.formBuilder.group({
+        userId: [user.userId, Validators.required],
+        isParticipating: [userPrefs.isParticipating, Validators.required],
+        oneWay: [userPrefs.oneWay, Validators.required],
+        isDriver: [userPrefs.isDriver, Validators.required],
+        isCustomMeetTime: [userPrefs.isCustomMeetTime, Validators.required],
+        customMeetTime: [userPrefs.customMeetTime],
+        isCustomDepartTime: [userPrefs.isCustomDepartTime, Validators.required],
+        customDepartTime: [userPrefs.customDepartTime],
+      });
+    } else {
+      this.preferencesForm = this.formBuilder.group({
+        userId: [user.userId, Validators.required],
+        isParticipating: [true, Validators.required],
+        oneWay: [false, Validators.required],
+        isDriver: [false, Validators.required],
+        isCustomMeetTime: [false, Validators.required],
+        customMeetTime: [],
+        isCustomDepartTime: [false, Validators.required],
+        customDepartTime: [],
+      });
+    }
   }
 
   onTestFormClick() {
@@ -70,10 +80,21 @@ export class FormRidePreferencesComponent implements OnInit {
   }
 
   onRidePreferenceUpdate(prefs: ICarpoolPreference[]) {
-    console.log(prefs);
+    // see if user had any preferences stored in the database for this ride
+    const user = this.authService.getLoggedInUserIdAndName();
+    const foundUserPrefs = prefs.find( pref => pref.userId === user.userId);
+    // if they did, initialize the form using those preferences
+    if (foundUserPrefs) {
+      this.initializeForm(foundUserPrefs);
+    } else {
+      // if not, initialize with default preferences
+      this.initializeForm();
+    }
   }
 
-  patchPreferenceForm() {
+  onSaveClick() {
+    this.apiDatabaseService.setRidePreferences(this.rideId, this.preferencesForm.value);
+    console.log('save done');
   }
 
 }

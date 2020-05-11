@@ -121,4 +121,10 @@ export class ApiDatabaseService {
       this.db.collection('users').doc(userId).update({name, email, photoUrl});
     }
   }
+
+  setRidePreferences(rideId: string, prefs: ICarpoolPreference) {
+    const userId = prefs.userId;
+    delete prefs.userId;
+    this.db.doc(`rides/${rideId}/ridePreferences/${userId}`).set(prefs);
+  }
 }

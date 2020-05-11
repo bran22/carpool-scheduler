@@ -1,27 +1,31 @@
 <button pButton type="button" label="test form" (click)="onTestFormClick()"></button>
 <p>{{ride$ | async | json}}</p>
 
-<form [formGroup]="preferencesForm">
+<form *ngIf="preferencesForm" [formGroup]="preferencesForm">
   <div class="p-grid">
     <div class="p-col-12">
       <h3>I'm in:</h3>
-      <p-selectButton [options]="yesNoEnum" formControlName="isParticipating"></p-selectButton>
+      <p-selectButton [options]="yesNoEnum" formControlName="isParticipating" styleClass="ride-prefs"></p-selectButton>
     </div>
     <div class="p-col-12">
-      <h3>Ride Direction:</h3>
-      <p-selectButton [options]="oneWayEnum" formControlName="oneWay"></p-selectButton>
+      <h3>One Way:</h3>
+      <p-selectButton [options]="yesNoEnum" formControlName="oneWay" styleClass="ride-prefs"></p-selectButton>
     </div>
     <div class="p-col-12">
       <h3>I want to drive:</h3>
-      <p-selectButton [options]="yesNoEnum" formControlName="isDriver"></p-selectButton>
+      <p-selectButton [options]="yesNoEnum" formControlName="isDriver" styleClass="ride-prefs"></p-selectButton>
     </div>
     <div class="p-col-12">
       <h3>Meet Time:</h3>
-      <p-selectButton [options]="defaultCustomEnum" formControlName="isCustomMeetTime"></p-selectButton>
+      <p-selectButton [options]="defaultCustomEnum" formControlName="isCustomMeetTime" styleClass="ride-prefs"></p-selectButton>
     </div>
     <div class="p-col-12">
       <h3>Depart Time:</h3>
-      <p-selectButton [options]="defaultCustomEnum" formControlName="isCustomDepartTime"></p-selectButton>
+      <p-selectButton [options]="defaultCustomEnum" formControlName="isCustomDepartTime" styleClass="ride-prefs"></p-selectButton>
+    </div>
+    <div class="p-col-12">
+      <button pButton type="button" class="ui-button-success save-button" label="Save Preferences" (click)="onSaveClick()"></button>
     </div>
   </div>
 </form>
+

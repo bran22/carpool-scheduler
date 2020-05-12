@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICarpool } from '../_shared/interfaces/_index';
-import { User } from 'firebase';
 import { ApiDatabaseService, AuthService } from '../_shared/services/_index';
 import {SelectItem, MessageService} from 'primeng/api';
 
@@ -34,10 +33,10 @@ export class ViewCarpoolsComponent implements OnInit {
   }
 
   getCarpools(selectedView: string) {
-    const user: User = this.authService.getLoggedInUserData();
+    const user = this.authService.getLoggedInUserIdAndName();
 
     if (selectedView === 'my-carpools') {
-      return this.apiDatabaseService.showCarpoolsWithParticipant(user.uid);
+      return this.apiDatabaseService.showCarpoolsWithParticipant(user);
     } else if (selectedView === 'all-carpools') {
       return this.apiDatabaseService.indexCarpools();
     }
@@ -49,8 +48,8 @@ export class ViewCarpoolsComponent implements OnInit {
   }
 
   onCarpoolJoin(carpool: ICarpool) {
-    const user: User = this.authService.getLoggedInUserData();
-    this.apiDatabaseService.addUserToCarpool(carpool.carpoolId, user.uid).subscribe(
+    const user = this.authService.getLoggedInUserIdAndName();
+    this.apiDatabaseService.addUserToCarpool(carpool.carpoolId, user.userId).subscribe(
       res => {
       // after successful join, raise toast
       this.messageService.add({severity: 'success', summary: 'Joined Carpool', detail: `You have joined ${carpool.carpoolName}`});

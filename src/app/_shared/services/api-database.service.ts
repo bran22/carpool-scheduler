@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AppUser, ICarpool, ICarpoolRide, ICarpoolPreference, IUserIdAndName } from '../interfaces/_index';
 import { map, switchMap, mergeAll } from 'rxjs/operators';
+import * as firebase from 'firebase/app';
 import * as moment from 'moment';
 
 @Injectable({
@@ -22,8 +23,8 @@ export class ApiDatabaseService {
     return this.db.collection<ICarpool>('carpools').valueChanges({idField: 'carpoolId'});
   }
 
-  showCarpoolsWithParticipant(userId: string) {
-    return this.db.collection<ICarpool>('carpools', ref => ref.where(`participants.${userId}`, '>', ''))
+  showCarpoolsWithParticipant(user: IUserIdAndName) {
+    return this.db.collection<ICarpool>('carpools', ref => ref.where(`participants`, 'array-contains', user))
       .valueChanges({idField: 'carpoolId'});
   }
 
@@ -36,11 +37,14 @@ export class ApiDatabaseService {
     return this.showUser(userId).pipe(
       // fetch user data from db first
       switchMap(appUser => {
-        // then, add user's name (from database) to carpool participants list
+        // then, add user to carpool participants list, using user's name (from database)
         const newParticipant = {
-          participants: {[userId]: appUser.name}
+          name: appUser.name,
+          userId
         };
-        return this.db.collection('carpools').doc(`${carpoolId}`).set(newParticipant, {merge: true});
+        return this.db.doc(`carpools/${carpoolId}`).update({
+          participants: firebase.firestore.FieldValue.arrayUnion(newParticipant)
+        });
       })
     );
   }

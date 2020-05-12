@@ -15,7 +15,6 @@ export class CarpoolCardComponent implements OnInit, OnChanges {
   @Output() selectedCarpool = new EventEmitter<ICarpool>(); // for emitting carpool objects that were selected by the user
   headerImage$: Observable<string>; // for displaying mapbox card-header image
   userIsParticipant: boolean; // for displaying different "join" button
-  participantsList: Array<string>;  // for displaying list of participant names
 
   constructor(
     private apiMapboxService: ApiMapboxService,
@@ -30,12 +29,9 @@ export class CarpoolCardComponent implements OnInit, OnChanges {
     // when input changes, fetch its respective static map
     this.headerImage$ = this.getStaticMap(this.carpool);
 
-    // put participants name into array
-    this.participantsList = Object.values(this.carpool.participants);
-
     // see if current user is a participant of the carpool (for button switching)
     const userId = this.authService.loggedInUser.uid;
-    const foundParticipant = this.carpool.participants.hasOwnProperty(userId);
+    const foundParticipant = this.carpool.participants.find( participant => participant.userId === userId);
     this.userIsParticipant = foundParticipant ? true : false;
   }
 

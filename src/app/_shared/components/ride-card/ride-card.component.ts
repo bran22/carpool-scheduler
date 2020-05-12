@@ -19,7 +19,7 @@ export class RideCardComponent implements OnInit {
   }
 
   onSetPreferencesClick(rideId: string) {
-    console.log(rideId);
+    // route user to the specific ride preferences page
     this.router.navigate([`/rides/preferences/${rideId}`]);
   }
 

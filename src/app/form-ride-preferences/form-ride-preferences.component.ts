@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import {MessageService} from 'primeng/api';
 import { ICarpoolPreference, ICarpoolRide } from '../_shared/interfaces/_index';
 import { ApiDatabaseService, AuthService } from '../_shared/services/_index';
 
@@ -26,7 +27,8 @@ export class FormRidePreferencesComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private apiDatabaseService: ApiDatabaseService,
-    private authService: AuthService
+    private authService: AuthService,
+    private messageService: MessageService
   ) {
     // initialize select-options
     this.defaultCustomEnum = [
@@ -103,7 +105,7 @@ export class FormRidePreferencesComponent implements OnInit {
     // form validation
 
     this.apiDatabaseService.setRidePreferences(this.rideId, this.preferencesForm.value);
-    console.log('save done');
+    this.messageService.add({severity: 'success', summary: 'Saved!', detail: `Your ride preferences have been saved!`});
   }
 
   onOneWayChange(isOneWay: boolean) {

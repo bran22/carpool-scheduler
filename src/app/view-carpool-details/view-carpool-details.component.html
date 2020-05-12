@@ -24,7 +24,7 @@
         <table class="">
           <tr>
             <td class="table-heading">Carpool Owner:</td>
-            <td class="table-info" *ngFor="let owner of carpool.owner | keyvalue">{{owner.value}}</td>
+            <td class="table-info">{{carpool.owner.name}}</td>
           </tr>
           <tr>
             <td class="table-heading">Destination:</td>
@@ -45,7 +45,7 @@
           <tr>
             <td class="table-heading">Participants:</td>
             <td class="table-info">
-              <p *ngFor="let participant of carpool.participants | keyvalue">{{participant.value}}</p>
+              <p *ngFor="let participant of carpool.participants">{{participant.name}}</p>
             </td>
           </tr>
         </table>

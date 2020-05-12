@@ -30,8 +30,13 @@ export class TopNavComponent implements OnInit {
         visible: true
       },
       {
-        label: 'View Carpools',
-        routerLink: ['/view'],
+        label: 'Carpools',
+        routerLink: ['/carpools'],
+        visible: false
+      },
+      {
+        label: 'Rides',
+        routerLink: ['/rides'],
         visible: false
       },
       {

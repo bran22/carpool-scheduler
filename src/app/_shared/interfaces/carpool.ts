@@ -1,4 +1,4 @@
-import { CarpoolParticipant, GeoJson } from './_index';
+import { ICarpoolParticipant, GeoJson } from './_index';
 
 export interface ICarpool {
   carpoolId: string;
@@ -10,5 +10,5 @@ export interface ICarpool {
   meetupTime: string;
   meetupDays: Array<number>;
   owner: any;
-  participants: any;
+  participants: ICarpoolParticipant[];
 }

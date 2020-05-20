@@ -1,6 +1,6 @@
 
 import { Component, Input, OnInit } from '@angular/core';
-import { ICarpool, GeoJson } from '../_shared/interfaces/_index';
+import { ICarpool, GeoJson, ICarpoolParticipant } from '../_shared/interfaces/_index';
 import {InputTextModule} from 'primeng/inputtext';
 import {CheckboxModule} from 'primeng/checkbox';
 import {CalendarModule} from 'primeng/calendar';
@@ -25,30 +25,14 @@ export class CreateCarpoolComponent implements OnInit {
   user: any;
   userID: string;
 
-  participant: any;
+  participant: ICarpoolParticipant;
 
   constructor(
     private db: AngularFirestore,
     public authService: AuthService,
     private messageService: MessageService
-  ) {
-      this.model = {
-      carpoolId: '',
-      carpoolName: '',
-      destinationName: '',
-      destinationPoint: null,
-      meetupName: '',
-      meetupPoint: null,
-      meetupTime: '',
-      meetupDays: null,
-      owner: null,
-      participants: null,
-      }
-    
-      this.participant = {
-        user: '',
-        userID: 'dummyUser'
-      };
+  ) {  
+      
    }
 
   ngOnInit() {
@@ -57,11 +41,11 @@ export class CreateCarpoolComponent implements OnInit {
   saveToFirebase(carpool: ICarpool) {
 
     this.user = this.authService.getLoggedInUserData();
-    console.log('Display name: ', this.user.displayname, 'id: ', this.user.uid); 
-    //this.participant.user = this.user.displayname;
-    //this.participant.userID = this.user.uid;
+    console.log('Display name: ', this.user.displayName, 'id: ', this.user.uid); 
+    this.participant.name = this.user.displayName;
+    this.participant.userId = this.user.uid;
 
-    //this.model.participants = this.participant;
+    this.model.participants.push(this.participant);// = this.participant;
     // Add a new document in collection "saved carpools"
     this.db.collection('savedCarpools').add(
       carpool

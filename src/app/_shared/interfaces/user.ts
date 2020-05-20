@@ -8,8 +8,8 @@ export interface AppUser {
 }
 
 // data shape for carpools/{document}/participants
-export interface CarpoolParticipant {
-  id: string;
+export interface ICarpoolParticipant {
+  userId: string;
   name: string;
-  owner: true;
+  owner?: boolean;
 }

@@ -1,37 +1,62 @@
 <p>
-    create a carpool here
+  create a carpool here
 </p>
 
-<div class="buttons">
-  <h3 class="first">First Name</h3>
-  <input id="input" type="text" size="30" pInputText [(ngModel)]="model.firstname" firstname="firstname"
-    #name="ngModel">
-
-  <h3 class="Last">Last Name</h3>
-  <input id="input" type="text" size="30" pInputText [(ngModel)]="model.lastname" lastname="lastname"
-    #lastname="ngModel">
+<div class="form">
 
   <h3 class="CarpoolName">Carpool Name</h3>
-  <input id="input" type="text" size="30" pInputText [(ngModel)]="model.carpoolname" carpoolname="carpoolname"
+  <input type="text" size="30" pInputText [(ngModel)]="model.carpoolName" carpoolname="carpoolName"
   #carpoolname="ngModel"> 
 
-  <div class="meettime">
-    <div class="ui-g-2 ui-md-4" style="width:250px">
+  <div class="dest">
+    <h3>Destination Name</h3>
+    <input type="text" size="30" pInputText [(ngModel)]="model.destinationName" DestinationName="destinationName"
+      #name="ngModel">
+
+    <h3>Select Destination!</h3>
+    <div class="dest-map">
+      <app-mapbox [lat]="38.481942" [lon]="-122.711357" (mapClick)="onSelectLocation($event,true)"></app-mapbox>
+    </div>
+  </div>  
+
+  <div class="meet">
+    <h3>Meet-Up Name</h3>
+    <input type="text" size="30" pInputText [(ngModel)]="model.meetupName" MeetupName="meetupName"
+      #name="ngModel">
+
+    <h3>Select Meeting Location</h3>
+  <div class="meet-map">
+      <app-mapbox [lat]="38.481942" [lon]="-122.711357" (mapClick)="onSelectLocation($event)" ></app-mapbox>
+    </div>
+  </div>  
+
+  <div class="ui-g">
+    <div class="ui-g-12 ui-md-4" style="width:250px">
       <h3>Default Meet-Up Time </h3>
-      <p-calendar [timeOnly]="true" hourFormat="12" ></p-calendar>
+      <p-calendar [(ngModel)]="model.meetupTime" [timeOnly]="true" hourFormat="12" ></p-calendar>
     </div>
 
-    <h3 class="first">Select Carpool Days</h3>
-    <div class="ui-g" style="width:250px;margin-bottom:10px;margin-top:10px">
-        <div class="ui-g-12"><p-checkbox name="group1" value="Monday" label="Monday" [(ngModel)]="weekdays" inputId="m"></p-checkbox></div>
-        <div class="ui-g-12"><p-checkbox name="group1" value="Tuesday" label="Tuesday" [(ngModel)]="weekdays" inputId="t"></p-checkbox></div>
-        <div class="ui-g-12"><p-checkbox name="group1" value="Wednesday" label="Wednesday" [(ngModel)]="weekdays" inputId="w"></p-checkbox></div>
-        <div class="ui-g-12"><p-checkbox name="group1" value="Thursday" label="Thursday" [(ngModel)]="weekdays" inputId="th"></p-checkbox></div>
-        <div class="ui-g-12"><p-checkbox name="group1" value="Friday" label="Friday" [(ngModel)]="weekdays" inputId="f"></p-checkbox></div>
+
+    <h3 class="ui-g-12">Select Carpool Days</h3>
+    <div class="ui-g" style="width:250px;margin-bottom:6px;margin-top:10px;margin-left:10px;">
+        <div class="ui-g-12"><p-checkbox name="group1" value="Monday" label="Monday" [(ngModel)]="model.meetupDays" inputId="m"></p-checkbox></div>
+        <div class="ui-g-12"><p-checkbox name="group1" value="Tuesday" label="Tuesday" [(ngModel)]="model.meetupDays" inputId="t"></p-checkbox></div>
+        <div class="ui-g-12"><p-checkbox name="group1" value="Wednesday" label="Wednesday" [(ngModel)]="model.meetupDays" inputId="w"></p-checkbox></div>
+        <div class="ui-g-12"><p-checkbox name="group1" value="Thursday" label="Thursday" [(ngModel)]="model.meetupDays" inputId="th"></p-checkbox></div>
+        <div class="ui-g-12"><p-checkbox name="group1" value="Friday" label="Friday" [(ngModel)]="model.meetupDays" inputId="f"></p-checkbox></div>
+        <div class="ui-g-12"></div>
     </div>
-    Selected Days: <span *ngFor="let day of weekdays" style="margin-right:10px">{{day}}</span>
   </div>
-  <h3 class="location">Meeting Location</h3>
 
-  <button (click)="saveToFirebase(model)">Save</button>
+
+
+  <div class="owner">
+    <h3>Owner Name</h3>
+    <input type="text" size="30" pInputText [(ngModel)]="model.owner" lastname="owner"
+      #lastname="ngModel">
+  </div>
+  <div class="save" style="margin-bottom:50px;">
+    <button pButton type="button" label= "Save" (click)="saveToFirebase(model)"></button>&nbsp;
+  </div>  
 </div>
+

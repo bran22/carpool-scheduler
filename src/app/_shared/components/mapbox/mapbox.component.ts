@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { GeoJson } from '../../interfaces/_index';
 import { environment } from '../../../../environments/environment';
@@ -15,6 +15,7 @@ export class MapboxComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() lon: number;
   @Input() showMarker ? = false;  // for setting whether a marker is being provided, default false
   @Input() markerJson?: GeoJson;  // for providing the marker coordinates
+  @Output() mapClick = new EventEmitter<GeoJson>(); // returns location of map click
 
   // default settings
   map: mapboxgl.Map;
@@ -75,12 +76,11 @@ export class MapboxComponent implements OnInit, AfterViewInit, OnChanges {
 
   }
 
+  location : GeoJson;
   addClickListener() {
     // https://docs.mapbox.com/mapbox-gl-js/example/queryrenderedfeatures-around-point/
     // https://docs.mapbox.com/mapbox-gl-js/example/mouse-position/
-    this.map.on('click', event => {
-      console.log(event.lngLat.wrap());
-    });
+    this.map.on('click', event => this.onMapClick(event));
   }
 
   drawMarker(markerJson: GeoJson) {
@@ -112,5 +112,23 @@ export class MapboxComponent implements OnInit, AfterViewInit, OnChanges {
       center: lonLat
     });
   }
+
+
+  onMapClick(event) {
+    console.log(event.lngLat.wrap());
+    const coordinates = event.lngLat.wrap();
+    const lat = coordinates.lat;
+    const lng = coordinates.lng;
+    this.location = {
+      geometry: {
+        coordinates: [lng, lat],
+        type: 'Point'
+      },
+      type: 'Feature'
+    };
+    this.mapClick.emit(this.location);
+    this.drawMarker(this.location);
+  }
+
 
 }

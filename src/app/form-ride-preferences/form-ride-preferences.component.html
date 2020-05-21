@@ -1,43 +1,69 @@
-<button pButton type="button" label="test form" (click)="onTestFormClick()"></button>
-<p>{{ride$ | async | json}}</p>
+<!-- <button pButton type="button" label="test form" (click)="onTestFormClick()"></button> -->
+<div class="card-with-margin" *ngIf="ride$ | async as ride">
+  <app-ride-card [ride]="ride" [showPrefsButton]="false"></app-ride-card>
+</div>
 
-<form *ngIf="preferencesForm" [formGroup]="preferencesForm">
-  <div class="p-grid">
-    <div class="p-col-12">
-      <h3>I'm in:</h3>
-      <p-selectButton [options]="yesNoEnum" formControlName="isParticipating" styleClass="ride-prefs"></p-selectButton>
-    </div>
 
-    <!-- if user isn't participating, the rest of the form doesn't matter, so hide it -->
-    <ng-container *ngIf="preferencesForm.value.isParticipating">
-      <div class="p-col-12">
-        <h3>One Way:</h3>
-        <p-selectButton [options]="yesNoEnum" formControlName="oneWay" styleClass="ride-prefs" (onChange)="onOneWayChange($event.value)"></p-selectButton>
-        <br />
-        <p-selectButton *ngIf="preferencesForm.value.oneWay" [options]="toFromDestinationEnum" formControlName="oneWayDirection" styleClass="ride-prefs"></p-selectButton>
-      </div>
-      <div class="p-col-12">
-        <h3>I want to drive:</h3>
-        <p-selectButton [options]="yesNoEnum" formControlName="isDriver" styleClass="ride-prefs"></p-selectButton>
-      </div>
-      <div class="p-col-12">
-        <h3>Meet Time:</h3>
-        <p-selectButton [options]="defaultCustomEnum" formControlName="isCustomMeetTime" styleClass="ride-prefs" (onChange)="onTimeChange('customMeetTime', $event.value)"></p-selectButton>
-        <br />
-        <p-calendar *ngIf="preferencesForm.value.isCustomMeetTime" formControlName="customMeetTime" [timeOnly]="true" hourFormat="12" [touchUI]="true" [readonlyInput]="true" [placeholder]="'Preferred Meet Time'"></p-calendar>
-      </div>
-      <div class="p-col-12">
-        <h3>Depart Time:</h3>
-        <p-selectButton [options]="defaultCustomEnum" formControlName="isCustomDepartTime" styleClass="ride-prefs" (onChange)="onTimeChange('customDepartTime', $event.value)"></p-selectButton>
-        <br />
-        <p-calendar *ngIf="preferencesForm.value.isCustomDepartTime" formControlName="customDepartTime" [timeOnly]="true" hourFormat="12" [touchUI]="true" [readonlyInput]="true" [placeholder]="'Preferred Depart Time'"></p-calendar>
-      </div>
-    </ng-container>
+<div class="p-grid reverse-if-big"> <!-- outer (whole-page) grid -->
 
-    <!-- save button -->
-    <div class="p-col-12">
-      <button pButton type="button" class="ui-button-success save-button" label="Save Preferences" (click)="onSaveClick()"></button>
-    </div>
+  <div class="p-col-12 p-xl-6" *ngIf="false"> <!-- temporarily hiding this block for now, needs some UI design -->
+    <p-fieldset legend="See other riders' preferences" [toggleable]="true" [collapsed]="true">
+      <div class="p-grid" *ngIf="allOtherRidePreferences.length">
+        <div class="p-col" *ngFor="let userPrefs of allOtherRidePreferences">
+          <ul>
+            <li *ngFor="let pref of userPrefs | keyvalue">{{pref.key}}: {{pref.value}}</li>
+          </ul>
+        </div>
+      </div>
+    </p-fieldset>
   </div>
-</form>
+  
+  <div class="p-col-12">
+    <h3>My Ride Preferences</h3>
+    <ng-container *ngTemplateOutlet="userPrefsForm"></ng-container>
+  </div>
 
+</div>
+
+
+<ng-template #userPrefsForm>
+  <form *ngIf="preferencesForm" [formGroup]="preferencesForm">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <h3>I'm in:</h3>
+        <p-selectButton [options]="yesNoEnum" formControlName="isParticipating" styleClass="ride-prefs"></p-selectButton>
+      </div>
+
+      <!-- if user isn't participating, the rest of the form doesn't matter, so hide it -->
+      <ng-container *ngIf="preferencesForm.value.isParticipating">
+        <div class="p-col-12">
+          <h3>One Way:</h3>
+          <p-selectButton [options]="yesNoEnum" formControlName="oneWay" styleClass="ride-prefs" (onChange)="onOneWayChange($event.value)"></p-selectButton>
+          <br />
+          <p-selectButton *ngIf="preferencesForm.value.oneWay" [options]="toFromDestinationEnum" formControlName="oneWayDirection" styleClass="ride-prefs"></p-selectButton>
+        </div>
+        <div class="p-col-12">
+          <h3>I want to drive:</h3>
+          <p-selectButton [options]="yesNoEnum" formControlName="isDriver" styleClass="ride-prefs"></p-selectButton>
+        </div>
+        <div class="p-col-12">
+          <h3>Meet Time:</h3>
+          <p-selectButton [options]="defaultCustomEnum" formControlName="isCustomMeetTime" styleClass="ride-prefs" (onChange)="onTimeChange('customMeetTime', $event.value)"></p-selectButton>
+          <br />
+          <p-calendar *ngIf="preferencesForm.value.isCustomMeetTime" formControlName="customMeetTime" [timeOnly]="true" hourFormat="12" [touchUI]="true" [readonlyInput]="true" [placeholder]="'Preferred Meet Time'"></p-calendar>
+        </div>
+        <div class="p-col-12">
+          <h3>Depart Time:</h3>
+          <p-selectButton [options]="defaultCustomEnum" formControlName="isCustomDepartTime" styleClass="ride-prefs" (onChange)="onTimeChange('customDepartTime', $event.value)"></p-selectButton>
+          <br />
+          <p-calendar *ngIf="preferencesForm.value.isCustomDepartTime" formControlName="customDepartTime" [timeOnly]="true" hourFormat="12" [touchUI]="true" [readonlyInput]="true" [placeholder]="'Preferred Depart Time'"></p-calendar>
+        </div>
+      </ng-container>
+
+      <!-- save button -->
+      <div class="p-col-12">
+        <button pButton type="button" class="ui-button-success save-button" label="Save Preferences" (click)="onSaveClick()"></button>
+      </div>
+    </div>
+  </form>
+</ng-template>

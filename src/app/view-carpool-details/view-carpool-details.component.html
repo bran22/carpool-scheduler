@@ -1,7 +1,7 @@
 
 <ng-container *ngIf="carpool$ | async as carpool">
   <div class="details-head">
-    <app-mapbox [lat]="carpool.meetupPoint.geometry.coordinates[1]" [lon]="carpool.meetupPoint.geometry.coordinates[0]" [showMarker]="true" [markerJson]="marker"></app-mapbox>
+    <app-mapbox [lat]="carpool.meetupPoint.geometry.coordinates[1]" [lon]="carpool.meetupPoint.geometry.coordinates[0]" [showMarker]="true" [markerJson]="marker" (mapClick)="test()"></app-mapbox>
   </div>
 
   <div class="p-grid">

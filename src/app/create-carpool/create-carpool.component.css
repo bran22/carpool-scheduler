@@ -1,7 +1,29 @@
-.buttons {
+.form {
     margin : 10px;
+    margin-bottom: 10px;
   }
 
-.meettime {
-  margin : 10px;
+.dest-map {
+  position: relative;
+  width: 90vw;
+  max-width: 500px;
+  height: 300px;
+  margin-right: 5px;
+}
+
+.meet-map {
+  position: relative;
+  width: 90vw;
+  max-width: 500px;
+  height: 300px;
+  margin-right: 5px;
+
+}
+
+.owner {
+  margin-bottom: 15px;
+}
+
+.save {
+  margin-bottom: 10px;
 }

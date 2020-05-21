@@ -1,3 +1,14 @@
+.card-with-margin {
+  margin-top: 10px;
+}
+
 .save-button {
   margin-top: 10px;
+}
+
+/* media query to reverse the order of the form and "other user prefs" card if the screen is big enough (form goes on left) */
+@media only screen and (min-width: 1200px)  {
+  .reverse-if-big {
+    flex-direction: row-reverse;
+  }
 }

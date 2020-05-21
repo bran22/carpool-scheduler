@@ -47,7 +47,7 @@
           </div>
 
           <!-- row 4 -->
-          <div class="p-col-12">
+          <div class="p-col-12" *ngIf="showPrefsButton">
             <button pButton type="button" label="Set Preferences" (click)="onSetPreferencesClick(ride.rideId)"></button>
           </div>
 

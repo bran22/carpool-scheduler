@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AppUser, ICarpool, ICarpoolRide, ICarpoolPreference, IUserIdAndName } from '../interfaces/_index';
+import { IAppUser, ICarpool, ICarpoolRide, ICarpoolPreference, IUserIdAndName } from '../interfaces/_index';
 import { map, switchMap, mergeAll } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import * as moment from 'moment';
@@ -115,7 +115,7 @@ export class ApiDatabaseService {
   }
 
   showUser(userId: string) {
-    return this.db.doc<AppUser>(`/users/${userId}`).valueChanges();
+    return this.db.doc<IAppUser>(`/users/${userId}`).valueChanges();
   }
 
   createOrUpdateUser(action: 'create' | 'update', userId: string, name: string, email: string, photoUrl: string) {

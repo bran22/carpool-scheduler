@@ -31,7 +31,9 @@ export class ViewCarpoolDetailsComponent implements OnInit {
       this.carpool$ = this.apiDatabaseService.showCarpool(this.carpoolId);
       this.latestRide$ = this.apiDatabaseService.showLatestRideWithPreferences(this.carpoolId);
       this.upcomingRides$ = this.apiDatabaseService.showUpcomingRidesForCarpool(this.carpoolId);
-      this.apiDatabaseService.showLatestRideForCarpool(this.carpoolId).subscribe( a => console.log(a));
+
+      // get latest ride info to show
+      // this.apiDatabaseService.showLatestRideForCarpool(this.carpoolId).subscribe( a => console.log(a));
     });
 
   }

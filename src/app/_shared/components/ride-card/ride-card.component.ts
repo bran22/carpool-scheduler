@@ -22,7 +22,7 @@ export class RideCardComponent implements OnInit {
   //////////////
 
   ngOnInit(): void {
-    console.log(this.ride);
+    // console.log(this.ride);
   }
 
   onSetPreferencesClick(rideId: string) {

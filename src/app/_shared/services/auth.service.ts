@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';  // for different login providers such as Google Auth API
 import { User } from 'firebase';
+import { IUserIdAndName } from '../interfaces/_index';
 import { ApiDatabaseService } from './api-database.service';
 import {MessageService} from 'primeng/api';
 
@@ -55,6 +56,15 @@ export class AuthService {
   getLoggedInUserData() {
     // returns just the stashed data, so we can reference specific properties for one-off use
     return this.loggedInUser;
+  }
+
+  getLoggedInUserIdAndName() {
+    // returns just the userId and name, so we can use this for queries
+    const uidAndName: IUserIdAndName = {
+      userId: this.loggedInUser.uid,
+      name: this.loggedInUser.displayName
+    };
+    return uidAndName;
   }
 
   updateUsersCollection(user: User) {

@@ -10,8 +10,10 @@
   <!-- if extracted data is empty, show noCarpools-->
   <ng-container *ngIf="carpools.length; else noCarpools">
     <!-- loop through carpools and render each as its own card-->
-    <div *ngFor="let carpool of carpools" class="ui-g-12 ui-md-6 ui-lg-6">
-      <app-carpool-card [carpool]="carpool" (selectedCarpool)="onCarpoolJoin($event)"></app-carpool-card>
+    <div class="p-grid">
+      <div *ngFor="let carpool of carpools" class="p-col-12 p-lg-6 p-xl-6">
+        <app-carpool-card [carpool]="carpool" (selectedCarpool)="onCarpoolJoin($event)"></app-carpool-card>
+      </div>
     </div>
   </ng-container>
 

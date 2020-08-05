@@ -1,0 +1,60 @@
+<div class="card-container">
+
+  <!-- using a nested grid to achieve this effect -->
+  <!--      ---------------------------------------------------      -->
+  <!--      -          ---                                   --      -->
+  <!--      -          ---  -------------------------------  --      -->
+  <!--      -          ---                                   --      -->
+  <!--      -          ---  -------------------------------  --      -->
+  <!--      -          ---                                   --      -->
+  <!--      ---------------------------------------------------      -->
+
+  <p-card>
+    <div class="p-grid card-text">
+  
+      <!-- left col date block -->
+      <div class="p-col-2">
+        <div class="date-block">
+          <p class="a">{{ride.rideDate.toDate() | date:'MMM'}}</p>
+          <p class="a date-block-day">{{ride.rideDate.toDate() | date:'d'}}</p>
+          <p class="a">{{ride.rideDate.toDate() | date:'yyyy'}}</p>
+        </div>
+      </div>
+  
+      <!-- right col, inner grid-->
+      <div class="p-col">
+        <div class="p-grid">
+
+          <!-- row 1-->
+          <div class="p-col-12">
+            <strong>{{ride.carpoolName}}</strong>
+          </div>
+
+          <!-- row 2-->
+          <div class="p-col-12">
+            <strong>Confirmed:&nbsp;</strong>
+            <ng-container *ngFor="let person of ride.confirmedParticipants">
+              <span *ngFor="let name of person | keyvalue">{{name.value}} </span>
+            </ng-container>
+          </div>
+
+          <!-- row 3-->
+          <div class="p-col-12">
+            <strong>Pending:&nbsp;</strong>
+            <ng-container *ngFor="let person of ride.confirmedParticipants">
+              <span *ngFor="let name of person | keyvalue">{{name.value}} </span>
+            </ng-container>
+          </div>
+
+          <!-- row 4 -->
+          <div class="p-col-12">
+            <button pButton type="button" label="Set Preferences" (click)="onSetPreferencesClick(ride.rideId)"></button>
+          </div>
+
+        </div>
+      </div> <!-- end inner grid-->
+  
+    </div> <!-- end outer grid-->
+  </p-card>
+
+</div>

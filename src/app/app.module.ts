@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // backend stuff
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -27,6 +27,7 @@ import {MessageService} from 'primeng/api';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {FieldsetModule} from 'primeng/fieldset';
+import {DialogModule} from 'primeng/dialog';
 
 // authored components
 import { AppRoutingModule } from './app-routing.module';
@@ -38,6 +39,9 @@ import { MapboxComponent } from './_shared/components/mapbox/mapbox.component';
 import { CreateCarpoolComponent} from './create-carpool/create-carpool.component';
 import { CarpoolCardComponent } from './_shared/components/carpool-card/carpool-card.component';
 import { ViewCarpoolDetailsComponent } from './view-carpool-details/view-carpool-details.component';
+import { RideCardComponent } from './_shared/components/ride-card/ride-card.component';
+import { ViewRidesComponent } from './view-rides/view-rides.component';
+import { FormRidePreferencesComponent } from './form-ride-preferences/form-ride-preferences.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,12 +51,16 @@ import { ViewCarpoolDetailsComponent } from './view-carpool-details/view-carpool
     MapboxComponent,
     CreateCarpoolComponent,
     CarpoolCardComponent,
-    ViewCarpoolDetailsComponent
+    ViewCarpoolDetailsComponent,
+    RideCardComponent,
+    ViewRidesComponent,
+    FormRidePreferencesComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -69,7 +77,8 @@ import { ViewCarpoolDetailsComponent } from './view-carpool-details/view-carpool
     ToastModule,
     SelectButtonModule,
     ProgressSpinnerModule,
-    FieldsetModule
+    FieldsetModule,
+    DialogModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

@@ -1,0 +1,5 @@
+<h3>My Upcoming Rides</h3>
+
+<ng-container *ngFor="let ride of upcomingRides$ | async">
+  <app-ride-card [ride]="ride"></app-ride-card>
+</ng-container>

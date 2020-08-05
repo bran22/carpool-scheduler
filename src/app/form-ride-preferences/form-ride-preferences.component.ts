@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import {MessageService} from 'primeng/api';
 import { ICarpoolPreference, ICarpoolRide } from '../_shared/interfaces/_index';
@@ -13,11 +13,13 @@ import { ApiDatabaseService, AuthService } from '../_shared/services/_index';
 })
 export class FormRidePreferencesComponent implements OnInit {
 
-  rideId: string;
+  // for rendering in DOM
   ride$: Observable<ICarpoolRide>;
+  allOtherRidePreferences: ICarpoolPreference[];
 
   // form
-  preferencesForm: any;
+  preferencesForm: FormGroup;
+  rideId: string;
   defaultCustomEnum: any;
   yesNoEnum: any;
   oneWayEnum: any;
@@ -89,12 +91,18 @@ export class FormRidePreferencesComponent implements OnInit {
   }
 
   onRidePreferenceUpdate(prefs: ICarpoolPreference[]) {
+    // shallow-copy preferences array into a global variable for rendering in DOM
+    this.allOtherRidePreferences = [...prefs];
+
     // see if user had any preferences stored in the database for this ride
     const user = this.authService.getLoggedInUserIdAndName();
     const foundUserPrefs = prefs.find( pref => pref.userId === user.userId);
     // if they did, initialize the form using those preferences
     if (foundUserPrefs) {
       this.initializeForm(foundUserPrefs);
+      // remove the user's prefs from the "all other user's prefs" array
+      const foundUserPrefsIndex = prefs.findIndex( pref => pref.userId === user.userId);
+      this.allOtherRidePreferences.splice(foundUserPrefsIndex);
     } else {
       // if not, initialize with default preferences
       this.initializeForm();

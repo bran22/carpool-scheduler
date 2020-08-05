@@ -4,7 +4,7 @@ import { AuthService, ApiDatabaseService } from '../_shared/services/_index';
 import {MenuItem} from 'primeng/api';
 import { Observable } from 'rxjs';
 import { User } from 'firebase';
-import { AppUser } from '../_shared/interfaces/_index';
+import { IAppUser } from '../_shared/interfaces/_index';
 
 @Component({
   selector: 'app-top-nav',
@@ -15,7 +15,7 @@ export class TopNavComponent implements OnInit {
 
   navigationMenu: MenuItem[];
   loggedInUser$: Observable<User>;
-  appUser$: Observable<AppUser>;
+  appUser$: Observable<IAppUser>;
 
   constructor(
     private router: Router,

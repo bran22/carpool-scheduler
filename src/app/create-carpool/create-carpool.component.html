@@ -1,62 +1,64 @@
 <p>
   create a carpool here
 </p>
-
-<div class="form">
-
-  <h3 class="CarpoolName">Carpool Name</h3>
-  <input type="text" size="30" pInputText [(ngModel)]="model.carpoolName" carpoolname="carpoolName"
-  #carpoolname="ngModel"> 
-
-  <div class="dest">
-    <h3>Destination Name</h3>
-    <input type="text" size="30" pInputText [(ngModel)]="model.destinationName" DestinationName="destinationName"
-      #name="ngModel">
-
-    <h3>Select Destination!</h3>
-    <div class="dest-map">
-      <app-mapbox [lat]="38.481942" [lon]="-122.711357" (mapClick)="onSelectLocation($event,true)"></app-mapbox>
-    </div>
-  </div>  
-
-  <div class="meet">
-    <h3>Meet-Up Name</h3>
-    <input type="text" size="30" pInputText [(ngModel)]="model.meetupName" MeetupName="meetupName"
-      #name="ngModel">
-
-    <h3>Select Meeting Location</h3>
-  <div class="meet-map">
-      <app-mapbox [lat]="38.481942" [lon]="-122.711357" (mapClick)="onSelectLocation($event)" ></app-mapbox>
-    </div>
-  </div>  
-
-  <div class="ui-g">
-    <div class="ui-g-12 ui-md-4" style="width:250px">
-      <h3>Default Meet-Up Time </h3>
-      <p-calendar [(ngModel)]="model.meetupTime" [timeOnly]="true" hourFormat="12" ></p-calendar>
-    </div>
+<button pButton type="button" label="test form" (click)="onTestFormClick()"></button>
 
 
-    <h3 class="ui-g-12">Select Carpool Days</h3>
-    <div class="ui-g" style="width:250px;margin-bottom:6px;margin-top:10px;margin-left:10px;">
-        <div class="ui-g-12"><p-checkbox name="group1" value="Monday" label="Monday" [(ngModel)]="model.meetupDays" inputId="m"></p-checkbox></div>
-        <div class="ui-g-12"><p-checkbox name="group1" value="Tuesday" label="Tuesday" [(ngModel)]="model.meetupDays" inputId="t"></p-checkbox></div>
-        <div class="ui-g-12"><p-checkbox name="group1" value="Wednesday" label="Wednesday" [(ngModel)]="model.meetupDays" inputId="w"></p-checkbox></div>
-        <div class="ui-g-12"><p-checkbox name="group1" value="Thursday" label="Thursday" [(ngModel)]="model.meetupDays" inputId="th"></p-checkbox></div>
-        <div class="ui-g-12"><p-checkbox name="group1" value="Friday" label="Friday" [(ngModel)]="model.meetupDays" inputId="f"></p-checkbox></div>
-        <div class="ui-g-12"></div>
+<form *ngIf="carpoolForm" [formGroup]="carpoolForm">
+  <div class="p-grid">
+    <div class="p-col-12">
+      <h3>Carpool Name</h3>
+      <input type="text" size="30" pInputText formControlName="carpoolName">
+
+      <h3>Destination Name</h3>
+      <input type="text" size="30" pInputText formControlName="destinationName">
+
+      <h3>Select Destination</h3>
+      <div class="dest-map">
+        <app-mapbox [lat]="38.481942" [lon]="-122.711357" (mapClick)="onSelectLocation($event,true)"></app-mapbox>
+      </div>
+
+      <h3>Meet-Up Name</h3>
+      <input type="text" size="30" pInputText formControlName="meetupName">
+
+      <h3>Select Meeting Location</h3>
+      <div class="meet-map">
+        <app-mapbox [lat]="38.481942" [lon]="-122.711357" (mapClick)="onSelectLocation($event)" ></app-mapbox>
+      </div>
+
+      <div class="ui-g-12 ui-md-4" style="width:250px">
+        <h3>Default Meet-Up Time </h3>
+        <p-calendar formControlName="meetupTime" [timeOnly]="true" hourFormat="12" ></p-calendar>
+      </div>
+
+      <h3 class="ui-g-12">Select Carpool Days</h3>
+      <div class="ui-g" style="width:250px;margin-bottom:6px;margin-top:10px;margin-left:10px;">
+          <div class="ui-g-12"><p-checkbox name="group1" value="Monday" label="Monday" formControlName="meetupDays" inputId="m"></p-checkbox></div>
+          <div class="ui-g-12"><p-checkbox name="group1" value="Tuesday" label="Tuesday" formControlName="meetupDays" inputId="t"></p-checkbox></div>
+          <div class="ui-g-12"><p-checkbox name="group1" value="Wednesday" label="Wednesday" formControlName="meetupDays" inputId="w"></p-checkbox></div>
+          <div class="ui-g-12"><p-checkbox name="group1" value="Thursday" label="Thursday" formControlName="meetupDays" inputId="th"></p-checkbox></div>
+          <div class="ui-g-12"><p-checkbox name="group1" value="Friday" label="Friday" formControlName="meetupDays" inputId="f"></p-checkbox></div>
+          <div class="ui-g-12"></div>
+      </div>
+
+      <h3>Owner Name</h3>
+      <input type="text" size="30" pInputText formControlName="owner">
+
+      <div class="save" style="margin-bottom:50px;margin-top:30px;">
+        <!-- <button pButton type="button" label= "Save" (click)="saveToFirebase(carpoolForm)"></button>&nbsp; -->
+        <button pButton type="button" label= "Save" [disabled]="carpoolForm.invalid" (click)="saveToFirebase(carpoolForm.value)"></button>&nbsp;
+        <div *ngIf="carpoolForm.invalid">
+          Please fix required fields.
+       </div>
+       <div *ngIf="carpoolForm.valid">
+         
+         <!-- if form is valid navigate to carpools page -->
+       </div>
+      </div> 
+       
+
     </div>
   </div>
+</form>
 
-
-
-  <div class="owner">
-    <h3>Owner Name</h3>
-    <input type="text" size="30" pInputText [(ngModel)]="model.owner" lastname="owner"
-      #lastname="ngModel">
-  </div>
-  <div class="save" style="margin-bottom:50px;">
-    <button pButton type="button" label= "Save" (click)="saveToFirebase(model)"></button>&nbsp;
-  </div>  
-</div>
 

@@ -13,3 +13,10 @@ export interface IUserIdAndName {
   userId: string;
   name: string;
 }
+
+// data shape for carpools/{document}/participants
+export interface ICarpoolParticipant {
+  userId: string;
+  name: string;
+  owner?: boolean;
+}

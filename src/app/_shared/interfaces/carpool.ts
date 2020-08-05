@@ -1,4 +1,4 @@
-import { GeoJson } from './_index';
+import { ICarpoolParticipant, GeoJson } from './_index';
 import { IUserIdAndName } from './user';
 
 export interface ICarpool {
